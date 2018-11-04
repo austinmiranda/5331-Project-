@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Social Marketplace</title>
+    @Styles.Render("~/Content/css")
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/5bafb4698a438d2b0cdfdac2/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+</head>
+<body>
+    <div class="navbar navbar-fixed-top" style="background-color: white">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Social Marketplace", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Ask for donation", "Request", "Donation")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Search", "Search", "Donation")</li>
+                    <!--<li>@Html.ActionLink("Sign in", "SignIn", "User")</li> -->
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li>Get to know</li>
+                        <li>@Html.ActionLink("About us", "About", "Home")</li>
+                        <li>@Html.ActionLink("Terms of use", "TermsOfUse", "Home")</li>
+                        <li>@Html.ActionLink("Privacy & cookies policy", "PrivacyCookiesPolicy", "Home")</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li>Engage</li>
+                        <li>@Html.ActionLink("Ask for donation", "Request", "Donation")</li>
+                       <!-- <li>@Html.ActionLink("Sign in", "SignIn", "User")</li> -->
+                        <li>@Html.ActionLink("Search", "Search", "Donation")</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <a href="https://www.facebook.com/"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
+                    <a href="https://twitter.com/"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
+                    <a href="https://plus.google.com/"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
+                    <a href="mailto:henrique.tensfeld@gmail.com"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
+                </div>
+            </div>
+
+            <hr />
+
+            <p>&copy; @DateTime.Now.Year - Social Marketplace</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
