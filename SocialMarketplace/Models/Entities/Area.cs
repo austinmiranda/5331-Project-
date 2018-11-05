@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SocialMarketplace.Models.Entities
 {
-    public class Category
+    public class Area
     {
         [Key]
         public int Id { get; set; }

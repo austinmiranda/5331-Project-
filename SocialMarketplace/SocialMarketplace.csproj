@@ -209,10 +209,34 @@
     <Compile Include="Migrations\201811050150283_InitialCreate.Designer.cs">
       <DependentUpon>201811050150283_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811050213137_Requests.cs" />
+    <Compile Include="Migrations\201811050213137_Requests.Designer.cs">
+      <DependentUpon>201811050213137_Requests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811050309004_Other-Tables.cs" />
+    <Compile Include="Migrations\201811050309004_Other-Tables.Designer.cs">
+      <DependentUpon>201811050309004_Other-Tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811050315165_Adjustments.cs" />
+    <Compile Include="Migrations\201811050315165_Adjustments.Designer.cs">
+      <DependentUpon>201811050315165_Adjustments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DAL\ApplicationContext.cs" />
+    <Compile Include="Models\Entities\Area.cs" />
     <Compile Include="Models\Entities\Category.cs" />
+    <Compile Include="Models\Entities\Enum\QuestionType.cs" />
+    <Compile Include="Models\Entities\Enum\RequestItemType.cs" />
+    <Compile Include="Models\Entities\Enum\RequestStatus.cs" />
+    <Compile Include="Models\Entities\Enum\ResponseStatus.cs" />
+    <Compile Include="Models\Entities\Feedback.cs" />
+    <Compile Include="Models\Entities\Notification.cs" />
+    <Compile Include="Models\Entities\Question.cs" />
+    <Compile Include="Models\Entities\Request.cs" />
+    <Compile Include="Models\Entities\RequestItem.cs" />
+    <Compile Include="Models\Entities\Response.cs" />
+    <Compile Include="Models\Entities\ResponseItem.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -320,6 +344,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201811050150283_InitialCreate.resx">
       <DependentUpon>201811050150283_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811050213137_Requests.resx">
+      <DependentUpon>201811050213137_Requests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811050309004_Other-Tables.resx">
+      <DependentUpon>201811050309004_Other-Tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811050315165_Adjustments.resx">
+      <DependentUpon>201811050315165_Adjustments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
