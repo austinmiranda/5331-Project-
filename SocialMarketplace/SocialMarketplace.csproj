@@ -205,16 +205,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811021812360_InitialCreate.cs" />
-    <Compile Include="Migrations\201811021812360_InitialCreate.Designer.cs">
-      <DependentUpon>201811021812360_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811022246055_Updates.cs" />
-    <Compile Include="Migrations\201811022246055_Updates.Designer.cs">
-      <DependentUpon>201811022246055_Updates.cs</DependentUpon>
+    <Compile Include="Migrations\201811050150283_InitialCreate.cs" />
+    <Compile Include="Migrations\201811050150283_InitialCreate.Designer.cs">
+      <DependentUpon>201811050150283_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DAL\ApplicationContext.cs" />
+    <Compile Include="Models\Entities\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -245,7 +243,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -298,6 +298,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\BLL\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
@@ -317,11 +318,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811021812360_InitialCreate.resx">
-      <DependentUpon>201811021812360_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811022246055_Updates.resx">
-      <DependentUpon>201811022246055_Updates.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811050150283_InitialCreate.resx">
+      <DependentUpon>201811050150283_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

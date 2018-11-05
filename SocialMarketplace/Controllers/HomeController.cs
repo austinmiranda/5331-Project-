@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SocialMarketplace.Models.DAL;
+using SocialMarketplace.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +12,14 @@ namespace SocialMarketplace.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            using (var context = new ApplicationContext())
+            {
+                context.Categories.Add(new Category { Id = 1, Name = "Groceries" });
+                context.SaveChanges();
+
+                return View(context.Categories);
+            }
+            //return View();
         }
 
         public ActionResult About()
