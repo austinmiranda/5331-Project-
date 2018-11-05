@@ -12,14 +12,7 @@ namespace SocialMarketplace.Controllers
     {
         public ActionResult Index()
         {
-            using (var context = new ApplicationContext())
-            {
-                context.Categories.Add(new Category { Id = 1, Name = "Groceries" });
-                context.SaveChanges();
-
-                return View(context.Categories);
-            }
-            //return View();
+            return View();
         }
 
         public ActionResult About()

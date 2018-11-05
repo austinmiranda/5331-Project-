@@ -1,0 +1,72 @@
+﻿@{
+    @model SocialMarketplace.Models.ViewModels.RequestViewModel
+
+    ViewBag.Title = "Request Donation";
+}
+
+@*@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>UserDemographics</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Birthdate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Birthdate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Birthdate, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <h3 style="text-align:center">3 steps to ask for a donation</h3><br />
+        <div class="row">
+            <h4>Step 1: A brief introduction abput yourself or your organization</h4>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="70"
+                     aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                    0%
+                </div>
+            </div>
+            <div class="col-xs-8">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <fieldset>
+                    <legend>Basic Information</legend>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Step1.CategoryId)
+                        @Html.DropDownListFor(model => model.Step1.CategoryId,
+                            Model.Categories,
+                            new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Step1.CategoryId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Step1.Title)
+                        @Html.EditorFor(model => model.Step1.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Step1.Subtitle)
+                        @Html.EditorFor(model => model.Step1.Subtitle, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Step1.Description)
+                        @Html.TextAreaFor(model => model.Step1.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Step1.DueDate)
+                        @Html.EditorFor(model => model.Step1.DueDate, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <button type="submit" class="btn btn-default">Next</button>
+
+                </fieldset>
+                    <br />
+                    <br />
+                }
+            </div>
+        </div>
