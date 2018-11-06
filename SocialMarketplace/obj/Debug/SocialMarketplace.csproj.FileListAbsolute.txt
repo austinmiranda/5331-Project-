@@ -246,3 +246,4 @@ Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketp
 Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.Requests.resources
 Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.OtherTables.resources
 Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.Adjustments.resources
+Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.tablephoto.resources

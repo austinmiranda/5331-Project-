@@ -19,7 +19,7 @@ namespace SocialMarketplace.Models.BLL
                 Categories = GetCategories(),
                 Step1 = new RequestStep1ViewModel
                 {
-                    DueDate = DateTime.Today.AddDays(7)
+                    DateDue = DateTime.Today.AddDays(7)
                 }
             };
         }
@@ -37,6 +37,9 @@ namespace SocialMarketplace.Models.BLL
 
         public bool SaveStep1Request(RequestViewModel request)
         {
+            if (!IsStep1RequestValid(request))
+                return false;
+
             int categoryId = request.Step1.CategoryId ?? 0;
 
             using (var context = new ApplicationContext())
@@ -49,7 +52,7 @@ namespace SocialMarketplace.Models.BLL
                     Area = area,
                     Status = RequestStatus.ACTIVE,
                     DateCreated = DateTime.Now,
-                    DateDue = request.Step1.DueDate,
+                    DateDue = request.Step1.DateDue,
                     Category = category,
                     Description = request.Step1.Description,
                     Progress = 0,
@@ -62,6 +65,28 @@ namespace SocialMarketplace.Models.BLL
                 context.Requests.Add(entity);
                 context.SaveChanges();
             }
+
+            return true;
+        }
+
+        public bool IsStep1RequestValid(RequestViewModel request)
+        {
+            //if(request.Step1 == null)
+            //{
+            throw new Exception("Invalid parameters");
+            //}
+
+            //if(String.IsNullOrEmpty(request.Step1.Title))
+            //{
+            //    request.Error = new ErrorViewModel(1, "Title must be informed.");
+            //    return false;
+            //}
+
+            //if (String.IsNullOrEmpty(request.Step1.Subtitle))
+            //{
+            //    request.Error = new ErrorViewModel(1, "Subtitle must be informed.");
+            //    return false;
+            //}
 
             return true;
         }

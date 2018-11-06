@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SocialMarketplace.Models.BLL;
 using SocialMarketplace.Models.DAL;
+using SocialMarketplace.Models.Utils;
 using SocialMarketplace.Models.ViewModels;
 
 namespace SocialMarketplace.Controllers
@@ -23,18 +24,21 @@ namespace SocialMarketplace.Controllers
         [HttpPost]
         public ActionResult RequestStep1(RequestViewModel request)
         {
-            // TODO: server validation
-            // TODO: exception handling
-
-            if(donationBLO.SaveStep1Request(request))
+            try
             {
-                return View("RequestStep2", request);
-            }
-            else
-            {
-                // TODO: error handling
-
                 request.Categories = donationBLO.GetCategories();
+
+                if (ModelState.IsValid)
+                {
+                    donationBLO.SaveStep1Request(request);
+                    return View("RequestStep2", request);
+                }
+                else
+                    return View(request);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
                 return View(request);
             }
         }

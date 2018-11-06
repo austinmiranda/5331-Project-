@@ -221,6 +221,10 @@
     <Compile Include="Migrations\201811050315165_Adjustments.Designer.cs">
       <DependentUpon>201811050315165_Adjustments.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811061512532_table-photo.cs" />
+    <Compile Include="Migrations\201811061512532_table-photo.Designer.cs">
+      <DependentUpon>201811061512532_table-photo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BLL\DonationBLO.cs" />
@@ -233,6 +237,7 @@
     <Compile Include="Models\Entities\Enum\ResponseStatus.cs" />
     <Compile Include="Models\Entities\Feedback.cs" />
     <Compile Include="Models\Entities\Notification.cs" />
+    <Compile Include="Models\Entities\Photo.cs" />
     <Compile Include="Models\Entities\Question.cs" />
     <Compile Include="Models\Entities\Request.cs" />
     <Compile Include="Models\Entities\RequestItem.cs" />
@@ -240,6 +245,7 @@
     <Compile Include="Models\Entities\ResponseItem.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Utils\ErrorHandling.cs" />
     <Compile Include="Models\ViewModels\RequestStep1ViewModel.cs" />
     <Compile Include="Models\ViewModels\RequestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -313,7 +319,7 @@
     <Content Include="Views\Donation\List.cshtml" />
     <Content Include="Views\Donation\RequestStep1.cshtml" />
     <Content Include="Views\Donation\RequestStep2.cshtml" />
-    <Content Include="Views\Donation\Request3.cshtml" />
+    <Content Include="Views\Donation\RequestStep3.cshtml" />
     <Content Include="Views\Donation\Response.cshtml" />
     <Content Include="Views\Donation\Result.cshtml" />
     <Content Include="Views\Donation\Search.cshtml" />
@@ -355,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811050315165_Adjustments.resx">
       <DependentUpon>201811050315165_Adjustments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811061512532_table-photo.resx">
+      <DependentUpon>201811061512532_table-photo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

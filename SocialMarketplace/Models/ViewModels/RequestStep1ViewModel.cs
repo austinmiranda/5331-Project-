@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -9,13 +10,17 @@ namespace SocialMarketplace.Models.ViewModels
 {
     public class RequestStep1ViewModel
     {
+        [Required(ErrorMessage = "Category is required"), DisplayName("Category:")]
         public int? CategoryId { get; set; }
+        [Required(ErrorMessage = "Title is required"), DisplayName("Title:")]
         public String Title { get; set; }
+        [Required(ErrorMessage = "Subtitle is required"), DisplayName("Sub-title:")]
         public String Subtitle { get; set; }
+        [Required(ErrorMessage = "Description is required"), DisplayName("Description:")]
         public String Description { get; set; }
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date), DisplayName("Due Date:"), Required(ErrorMessage = "Due Date is required")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime DueDate { get; set; }
+        public DateTime DateDue { get; set; }
 
     }
 }
