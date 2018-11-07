@@ -9,6 +9,9 @@ using SocialMarketplace.Models.Utils;
 using SocialMarketplace.Models.ViewModels.Request;
 using Microsoft.AspNet.Identity;
 using System.Web.Routing;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net;
 
 namespace SocialMarketplace.Controllers
 {
@@ -163,6 +166,27 @@ namespace SocialMarketplace.Controllers
         public ActionResult FinishAskForDonation()
         {
             return View();
+        }
+
+        public ActionResult Photo(int id)
+        {
+            var response = new HttpResponseMessage();
+
+            try
+            {
+                byte[] photo = donationBLO.Photo(id);
+
+                if(photo != null)
+                {
+                    return File(photo, "image/png");
+                }
+                else
+                    return HttpNotFound();
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Internal Server Error");
+            }
         }
 
         public ActionResult Response()

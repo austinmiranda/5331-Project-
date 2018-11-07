@@ -197,5 +197,18 @@ namespace SocialMarketplace.Models.BLL
                     throw new Exception("Invalid photo format. Must be JPG or PNG.");
             }
         }
+
+        public byte[] Photo(int id)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var request = context.Requests.Where(x => x.Id == id).SingleOrDefault();
+
+                if (request != null)
+                    return request.Photo;
+                else
+                    return null;
+            }
+        }
     }
 }
