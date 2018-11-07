@@ -11,6 +11,6 @@ namespace SocialMarketplace.Models.ViewModels.Request
     public class RequestStep1ViewModel
     {
         public SelectList Categories { get; set; }
-        public RequestViewModel RequestInForm { get; set; }
+        public RequestMandatoryViewModel RequestInForm { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace SocialMarketplace.Models.ViewModels.Request
 {
-    public class RequestViewModel
+    public class RequestMandatoryViewModel
     {
         public int? Id { get; set; }
         [Required(ErrorMessage = "Category is required"), DisplayName("Category:")]

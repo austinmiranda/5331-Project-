@@ -11,5 +11,6 @@ namespace SocialMarketplace.Models.ViewModels.Request
         public int RequestId { get; set; }
         public RequestStep1ViewModel Step1 { get; set; }
         public RequestStep2ViewModel Step2 { get; set; }
+        public RequestStep3ViewModel Step3 { get; set; }            
     }
 }

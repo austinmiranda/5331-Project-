@@ -1,9 +1,9 @@
-﻿
-@{
-    ViewBag.Title = "Request3";
-}
-<h3 style="text-align:center">3 steps to ask for a donatation</h3><br />
+﻿@{
+    @model SocialMarketplace.Models.ViewModels.Request.RequestStep3ViewModel
 
+    ViewBag.Title = "Request Donation - Step 3";
+}
+<h3 style="text-align:center">Request Donation Form</h3><br />
 <div class="row">
     <h4>Step3: Upload your support materials</h4>
     <div class="progress">
@@ -12,21 +12,41 @@
             66%
         </div>
     </div>
-    <div class="col-xs-12">
-        <form action="/Donation/FinishAskForDonation">
-            <fieldset>
-                <legend>Tell us why you need?</legend>
-                <div class="form-group">
-                    <label>Select image to upload:</label>
-                    <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Select Vedio to upload:</label>
-                    <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-default">Finish</button>
-            </fieldset>
-        </form>
+    <div class="col-xs-8">
+
+        @using (Html.BeginForm("RequestStep3", "Donation", FormMethod.Post, new { encType = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            if (!ViewData.ModelState.IsValid)
+            {
+                @Html.ValidationSummary(true, "Please correct the following information:", new { @class = "text-danger" })
+            }
+
+        <fieldset>
+            <legend>Additional Information</legend>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RequestOptional.Keywords)
+                @Html.EditorFor(model => model.RequestOptional.Keywords, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RequestOptional.Keywords, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RequestOptional.Photo)
+                @Html.TextBoxFor(m => m.RequestOptional.Photo, new { type = "file", name = "Files", htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RequestOptional.Photo, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RequestOptional.VideoURL)
+                @Html.EditorFor(model => model.RequestOptional.VideoURL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RequestOptional.VideoURL, "", new { @class = "text-danger" })
+            </div>
+
+
+            <button type="submit" class="btn btn-default">Finish</button>
+        </fieldset>
+        }
     </div>
 </div>
-

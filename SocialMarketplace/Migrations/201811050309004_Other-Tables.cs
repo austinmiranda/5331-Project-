@@ -108,7 +108,7 @@ namespace SocialMarketplace.Migrations
             AlterColumn("dbo.Request", "Subtitle", c => c.String(nullable: false, maxLength: 300));
             AlterColumn("dbo.Request", "Description", c => c.String(nullable: false));
             AlterColumn("dbo.Request", "Keywords", c => c.String(maxLength: 300));
-            AlterColumn("dbo.Request", "Photo", c => c.String(maxLength: 300));
+            AddColumn("dbo.Request", "Photo", c => c.Binary());
             AlterColumn("dbo.Request", "VideoURL", c => c.String(maxLength: 300));
             AlterColumn("dbo.Request", "Category_Id", c => c.Int(nullable: false));
             CreateIndex("dbo.Request", "Area_Id");
@@ -137,7 +137,7 @@ namespace SocialMarketplace.Migrations
             DropIndex("dbo.Feedback", new[] { "Request_Id" });
             AlterColumn("dbo.Request", "Category_Id", c => c.Int());
             AlterColumn("dbo.Request", "VideoURL", c => c.String());
-            AlterColumn("dbo.Request", "Photo", c => c.String());
+            DropColumn("dbo.Request", "Photo");
             AlterColumn("dbo.Request", "Keywords", c => c.String());
             AlterColumn("dbo.Request", "Description", c => c.String());
             AlterColumn("dbo.Request", "Subtitle", c => c.String());

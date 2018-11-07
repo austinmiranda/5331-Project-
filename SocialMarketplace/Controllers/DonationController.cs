@@ -102,10 +102,47 @@ namespace SocialMarketplace.Controllers
                 return View(viewModel.Step2);
             }
         }
+
         public ActionResult RequestStep3()
         {
-            return View();
+            var viewModel = (RequestStepsViewModel)Session["viewModel"];
+
+            try
+            {
+                return View(viewModel.Step3);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View(viewModel.Step3);
+            }
         }
+
+        [HttpPost]
+        public ActionResult RequestStep3(RequestStep3ViewModel request)
+        {
+            var viewModel = (RequestStepsViewModel)Session["viewModel"];
+
+            try
+            {
+                viewModel.Step3.RequestOptional = request.RequestOptional;
+
+                if (ModelState.IsValid)
+                {
+                    donationBLO.SaveRequest(viewModel.Step1.RequestInForm, viewModel.Step3.RequestOptional);
+
+                    return RedirectToAction("FinishAskForDonation");
+                }
+
+                return View(viewModel.Step3);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View(viewModel.Step2);
+            }
+        }
+
         public ActionResult FinishAskForDonation()
         {
             return View();

@@ -7,13 +7,13 @@ namespace SocialMarketplace.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class tablephoto : IMigrationMetadata
+    public sealed partial class Temp : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(tablephoto));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Temp));
         
         string IMigrationMetadata.Id
         {
-            get { return "201811061512532_table-photo"; }
+            get { return "201811070549032_Temp"; }
         }
         
         string IMigrationMetadata.Source

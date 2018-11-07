@@ -36,6 +36,5 @@ namespace SocialMarketplace.Models.DAL
         public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
-        public virtual DbSet<Photo> Photos { get; set; }
     }
 }

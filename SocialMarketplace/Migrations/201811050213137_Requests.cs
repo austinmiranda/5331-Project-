@@ -16,7 +16,6 @@ namespace SocialMarketplace.Migrations
                         Subtitle = c.String(),
                         Description = c.String(),
                         Keywords = c.String(),
-                        Photo = c.String(),
                         VideoURL = c.String(),
                         VisualizationCount = c.Int(nullable: false),
                         Progress = c.Int(nullable: false),
