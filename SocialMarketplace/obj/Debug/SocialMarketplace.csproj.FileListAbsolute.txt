@@ -120,7 +120,6 @@ C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\Socia
 C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\SocialMarketplace.pdb
 C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.InitialCreate.resources
 C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\SocialMarketplace.csproj.GenerateResource.cache
-C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.Updates.resources
 Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\bin\ApplicationInsights.config
 Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\bin\SocialMarketplace.dll.config
 Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\bin\SocialMarketplace.dll
@@ -247,3 +246,7 @@ Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketp
 Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\obj\Debug\SocialMarketplace.dll
 Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\obj\Debug\SocialMarketplace.pdb
 Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.Temp.resources
+C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.Requests.resources
+C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.OtherTables.resources
+C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.Adjustments.resources
+C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.Temp.resources

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -64,9 +65,12 @@ namespace SocialMarketplace.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId<int>();
+            var user = await UserManager.FindByIdAsync(userId);
+
             Console.WriteLine(userId);
             var model = new IndexViewModel
             {
+                UserId = userId,
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
@@ -386,6 +390,53 @@ namespace SocialMarketplace.Controllers
             Error
         }
 
-#endregion
+        //Edit User Profime Get and Post
+
+        public async Task<ActionResult> Edit(int id)
+        {
+
+            var user = await UserManager.FindByIdAsync(id);
+           
+
+            return View(new EditUserViewModel()
+            {
+                Id = user.Id,
+                PhoneNumber = user.PhoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Address = user.Address,
+                Company = user.Company
+            });
+        }
+
+        [HttpPost]
+    [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind(Include =
+    "Id,FirstName,LastName,PhoneNumber,Address,Company")]
+    EditUserViewModel editUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByIdAsync(editUser.Id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+
+                user.FirstName = editUser.FirstName;
+                user.FirstName = editUser.FirstName;
+                user.PhoneNumber = editUser.PhoneNumber;
+                user.Address = editUser.Address;
+                user.Company = editUser.Company;
+                UserManager.Update(user);
+
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "Something failed.");
+            return View();
+        }
+
+
+        #endregion
     }
 }
