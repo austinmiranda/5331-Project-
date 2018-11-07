@@ -1,6 +1,7 @@
 ﻿using SocialMarketplace.Models.DAL;
 using SocialMarketplace.Models.Entities;
 using SocialMarketplace.Models.Entities.Enum;
+using SocialMarketplace.Models.Utils;
 using SocialMarketplace.Models.ViewModels.Request;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace SocialMarketplace.Models.BLL
 {
@@ -65,10 +67,8 @@ namespace SocialMarketplace.Models.BLL
 
             using (var context = new ApplicationContext())
             {
-                // TODO: connect with the user
-
                 var category = context.Categories.Where(x => x.Id == categoryId).SingleOrDefault();
-                var area = context.Areas.Where(x => x.Id == 1).SingleOrDefault();
+                var area = context.Areas.Where(x => x.Id == SessionFacade.AreaId).SingleOrDefault();
 
                 Request entity;
                 
@@ -85,7 +85,7 @@ namespace SocialMarketplace.Models.BLL
                     entity.Progress = 0;
                     entity.Subtitle = requestMandatory.Subtitle;
                     entity.Title = requestMandatory.Title;
-                    entity.UserId = 1;
+                    entity.UserId = SessionFacade.User.Identity.GetUserId<int>();
                     entity.VisualizationCount = 0;
                 }
                 else
@@ -101,7 +101,7 @@ namespace SocialMarketplace.Models.BLL
                         Progress = 0,
                         Subtitle = requestMandatory.Subtitle,
                         Title = requestMandatory.Title,
-                        UserId = 1,
+                        UserId = SessionFacade.User.Identity.GetUserId<int>(),
                         VisualizationCount = 0
                     };
 
@@ -138,8 +138,6 @@ namespace SocialMarketplace.Models.BLL
 
             using (var context = new ApplicationContext())
             {
-                // TODO: connect with the user
-
                 var request = context.Requests.Where(x => x.Id == Id).SingleOrDefault();
 
                 var entity = new RequestItem()

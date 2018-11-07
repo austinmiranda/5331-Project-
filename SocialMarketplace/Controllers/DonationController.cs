@@ -7,19 +7,22 @@ using SocialMarketplace.Models.BLL;
 using SocialMarketplace.Models.DAL;
 using SocialMarketplace.Models.Utils;
 using SocialMarketplace.Models.ViewModels.Request;
+using Microsoft.AspNet.Identity;
+using System.Web.Routing;
 
 namespace SocialMarketplace.Controllers
 {
-    public class DonationController : Controller
+    public class DonationController : BaseController
     {
         private readonly DonationBLO donationBLO = new DonationBLO();
 
+        [Authorize]
         public ActionResult RequestStep1()
         {
             try
             {
                 var viewModel = donationBLO.CreateEmptyDonationViewModel();
-                Session["viewModel"] = viewModel;
+                SessionFacade.RequestSteps = viewModel;
 
                 return View(viewModel.Step1);
             }
@@ -30,10 +33,11 @@ namespace SocialMarketplace.Controllers
             }
         }
 
-        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize, HttpPost]
         public ActionResult RequestStep1(RequestStep1ViewModel request)
         {
-            var viewModel = (RequestStepsViewModel)Session["viewModel"];
+            var viewModel = SessionFacade.RequestSteps;
 
             try
             {
@@ -55,9 +59,10 @@ namespace SocialMarketplace.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult RequestStep2()
         {
-            var viewModel = (RequestStepsViewModel)Session["viewModel"];
+            var viewModel = SessionFacade.RequestSteps;
 
             try
             {
@@ -70,10 +75,11 @@ namespace SocialMarketplace.Controllers
             }
         }
 
-        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize, HttpPost]
         public ActionResult RequestStep2(RequestStep2ViewModel request)
         {
-            var viewModel = (RequestStepsViewModel)Session["viewModel"];
+            var viewModel = SessionFacade.RequestSteps;
 
             try
             {
@@ -103,9 +109,10 @@ namespace SocialMarketplace.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult RequestStep3()
         {
-            var viewModel = (RequestStepsViewModel)Session["viewModel"];
+            var viewModel = SessionFacade.RequestSteps;
 
             try
             {
@@ -118,10 +125,11 @@ namespace SocialMarketplace.Controllers
             }
         }
 
-        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize, HttpPost]
         public ActionResult RequestStep3(RequestStep3ViewModel request)
         {
-            var viewModel = (RequestStepsViewModel)Session["viewModel"];
+            var viewModel = SessionFacade.RequestSteps;
 
             try
             {
@@ -143,6 +151,7 @@ namespace SocialMarketplace.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult FinishAskForDonation()
         {
             return View();
