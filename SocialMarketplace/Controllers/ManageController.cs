@@ -64,6 +64,7 @@ namespace SocialMarketplace.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId<int>();
+            Console.WriteLine(userId);
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -72,6 +73,7 @@ namespace SocialMarketplace.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId.ToString())
             };
+            
             return View(model);
         }
 
