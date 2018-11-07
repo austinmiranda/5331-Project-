@@ -135,6 +135,21 @@ namespace SocialMarketplace.Models.BLL
             }
         }
 
+        internal void DeleteItem(int requestId, int requestItemId)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var item = context.RequestItems
+                    .Where(x => x.Id == requestItemId && x.Request.Id == requestId).SingleOrDefault();
+
+                if(item != null)
+                {
+                    context.RequestItems.Remove(item);
+                    context.SaveChanges();
+                }
+            }
+        }
+
         internal void AddRequestItem(RequestItemViewModel requestItem, int Id)
         {
             ValidateStep2Request(requestItem);

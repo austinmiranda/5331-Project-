@@ -4,64 +4,83 @@
     ViewBag.Title = "Request Donation - Step 2";
 }
 
-        <h3 style="text-align:center">Request Donation Form</h3><br />
-        <div class="row">
-            <h4>Step 2: Items Relation</h4>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                        aria-valuemin="0" aria-valuemax="100" style="width:33%">
-                    33%
-                </div>
-            </div>
-            <div class="col-xs-8">
+<h3 style="text-align:center">Request Donation Form</h3><br />
 
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-                    if (!ViewData.ModelState.IsValid)
-                    {
-                        @Html.ValidationSummary(true, "Please correct the following information:", new { @class = "text-danger" })
-                    }
-
-                <fieldset>
-                    <legend>Items</legend>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ItemInForm.Title)
-                        @Html.EditorFor(model => model.ItemInForm.Title, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ItemInForm.Title, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ItemInForm.Detail)
-                        @Html.TextAreaFor(model => model.ItemInForm.Detail, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ItemInForm.Detail, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ItemInForm.Type)
-                        @Html.DropDownListFor(model => model.ItemInForm.Type,
-                            Model.RequestItemTypes,
-                            new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ItemInForm.Type, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ItemInForm.Quantity)
-                        @Html.EditorFor(model => model.ItemInForm.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ItemInForm.Quantity, "", new { @class = "text-danger" })
-                    </div>
-
-                    <button type="submit" name="Command" value="AddMore" class="btn btn-default">Add more...</button>
-                    <button type="submit" name="Command" value="Next" class="btn btn-default">Next</button>
-
-                </fieldset>
-                }
-            </div>
-                @{
-                    var grid = new WebGrid(Model.Items);
-                }
-            <div class="col-xs-8">
-                @grid.GetHtml()
+    <div class="row">
+        <h4>Step 2: Items Relation</h4>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="70"
+                 aria-valuemin="0" aria-valuemax="100" style="width:33%">
+                33%
             </div>
         </div>
+        <div class="col-xs-8">
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+            @Html.ValidationSummary(true, "Please correct the following information:", new { @class = "text-danger" })
+            }
+
+            <fieldset>
+                <legend>Items</legend>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemInForm.Title)
+                    @Html.EditorFor(model => model.ItemInForm.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ItemInForm.Title, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemInForm.Detail)
+                    @Html.TextAreaFor(model => model.ItemInForm.Detail, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ItemInForm.Detail, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemInForm.Type)
+                    @Html.DropDownListFor(model => model.ItemInForm.Type,
+                        Model.RequestItemTypes,
+                        new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ItemInForm.Type, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemInForm.Quantity)
+                    @Html.EditorFor(model => model.ItemInForm.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ItemInForm.Quantity, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" name="Command" value="AddMore" class="btn btn-default">Add more...</button>
+                <button type="submit" name="Command" value="Next" class="btn btn-default">Next</button>
+
+            </fieldset>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-8">
+            @if (Model.Items.Count > 0)
+            {
+                <h4 style="margin-top: 20px">Items</h4>
+
+                var grid = new WebGrid(Model.Items);
+
+                @grid.GetHtml(
+                    tableStyle: "table table-bordered table-striped table-condensed",
+                    htmlAttributes: new {
+                        id = "grid"
+                    },
+                    columns: grid.Columns(
+                        grid.Column("Type", "Type", canSort: false),
+                        grid.Column("Title", "Item", canSort: false),
+                        grid.Column("Detail", "Details", canSort: false),
+                        grid.Column("Quantity", "Qty", canSort: false),
+                        grid.Column("Options", format: @<button type="submit" name="Delete" value="@item.Id">Remove</button>, canSort: false)
+                    ))
+            }
+
+        </div>
+    </div>
+}

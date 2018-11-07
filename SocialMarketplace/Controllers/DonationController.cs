@@ -85,6 +85,14 @@ namespace SocialMarketplace.Controllers
             {
                 viewModel.Step2.ItemInForm = request.ItemInForm;
                 
+                if(request.Delete > 0)
+                {
+                    donationBLO.DeleteItem(viewModel.RequestId, request.Delete.Value);
+                    viewModel.Step2.Items.Remove(viewModel.Step2.Items.Where(x => x.Id == request.Delete.Value).Single());
+                    ModelState.Clear();
+                    return View(viewModel.Step2);
+                }
+
                 if (ModelState.IsValid)
                 {
                     donationBLO.AddRequestItem(viewModel.Step2.ItemInForm, viewModel.RequestId);

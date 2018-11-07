@@ -246,7 +246,18 @@ Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketp
 Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\obj\Debug\SocialMarketplace.dll
 Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\obj\Debug\SocialMarketplace.pdb
 Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.Temp.resources
+<<<<<<< HEAD
 C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.Requests.resources
 C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.OtherTables.resources
 C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.Adjustments.resources
 C:\Users\Austin\source\repos\SocialMarketplace\SocialMarketplace\obj\Debug\SocialMarketplace.Migrations.Temp.resources
+=======
+Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\bin\roslyn\Microsoft.Win32.Primitives.dll
+Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\bin\roslyn\System.Globalization.Calendars.dll
+Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\bin\roslyn\System.IO.Compression.ZipFile.dll
+Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\bin\roslyn\System.Net.Http.dll
+Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\bin\roslyn\System.Net.Sockets.dll
+Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+Y:\GoogleDrive\Humber_1\ASPNET\Project\SourcesAustin\5331-Project-\SocialMarketplace\bin\roslyn\System.Threading.Tasks.Extensions.dll
+>>>>>>> 9979f53f2e4d18ceba10b748a892ddcba067e78d
