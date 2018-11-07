@@ -13,5 +13,6 @@ namespace SocialMarketplace.Models.ViewModels.Request
 
         public IList<RequestItemViewModel> Items { get; set; }
         public String Command { get; set; }
+        public int? Delete { get; set; }
     }
 }
