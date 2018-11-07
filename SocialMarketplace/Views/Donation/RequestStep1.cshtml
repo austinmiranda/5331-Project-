@@ -1,7 +1,7 @@
 ﻿@{
-    @model SocialMarketplace.Models.ViewModels.RequestViewModel
+    @model SocialMarketplace.Models.ViewModels.Request.RequestStep1ViewModel
 
-    ViewBag.Title = "Request Donation";
+    ViewBag.Title = "Request Donation - Step 1";
 }
 
         <h3 style="text-align:center">Request Donation Form</h3><br />
@@ -27,37 +27,36 @@
                     <fieldset>
                         <legend>Basic Information</legend>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Step1.CategoryId)
-                            @Html.DropDownListFor(model => model.Step1.CategoryId,
+                            @Html.LabelFor(model => model.RequestInForm.CategoryId)
+                            @Html.DropDownListFor(model => model.RequestInForm.CategoryId,
                                 Model.Categories,
                                 new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Step1.CategoryId, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.RequestInForm.CategoryId, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Step1.Title)
-                            @Html.EditorFor(model => model.Step1.Title, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Step1.Title, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.RequestInForm.Title)
+                            @Html.EditorFor(model => model.RequestInForm.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.RequestInForm.Title, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Step1.Subtitle)
-                            @Html.EditorFor(model => model.Step1.Subtitle, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Step1.Subtitle, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.RequestInForm.Subtitle)
+                            @Html.EditorFor(model => model.RequestInForm.Subtitle, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.RequestInForm.Subtitle, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Step1.Description)
-                            @Html.TextAreaFor(model => model.Step1.Description, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Step1.Description, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.RequestInForm.Description)
+                            @Html.TextAreaFor(model => model.RequestInForm.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.RequestInForm.Description, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Step1.DateDue)
-                            @Html.EditorFor(model => model.Step1.DateDue, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Step1.DateDue, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.RequestInForm.DateDue)
+                            @Html.EditorFor(model => model.RequestInForm.DateDue, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.RequestInForm.DateDue, "", new { @class = "text-danger" })
                         </div>
+
                         <button type="submit" class="btn btn-default">Next</button>
 
                     </fieldset>
-                    <br />
-                    <br />
                 }
             </div>
         </div>

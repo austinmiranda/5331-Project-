@@ -6,10 +6,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SocialMarketplace.Models.ViewModels
+namespace SocialMarketplace.Models.ViewModels.Request
 {
-    public class RequestStep1ViewModel
+    public class RequestViewModel
     {
+        public int? Id { get; set; }
         [Required(ErrorMessage = "Category is required"), DisplayName("Category:")]
         public int? CategoryId { get; set; }
         [Required(ErrorMessage = "Title is required"), DisplayName("Title:")]

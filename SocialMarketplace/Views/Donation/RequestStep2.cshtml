@@ -1,40 +1,67 @@
-﻿
-@{
-    ViewBag.Title = "Request2";
+﻿@{
+    @model SocialMarketplace.Models.ViewModels.Request.RequestStep2ViewModel
+
+    ViewBag.Title = "Request Donation - Step 2";
 }
-<h3 style="text-align:center">3 steps to ask for a donatation</h3><br />
-<div class="row">
-    <h4>Step2: A brief description about what you need</h4>
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-             aria-valuemin="0" aria-valuemax="100" style="width:33%">
-            33%
+
+        <h3 style="text-align:center">Request Donation Form</h3><br />
+        <div class="row">
+            <h4>Step 2: Items Relation</h4>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="70"
+                        aria-valuemin="0" aria-valuemax="100" style="width:33%">
+                    33%
+                </div>
+            </div>
+            <div class="col-xs-8">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    if (!ViewData.ModelState.IsValid)
+                    {
+                        @Html.ValidationSummary(true, "Please correct the following information:", new { @class = "text-danger" })
+                    }
+
+                <fieldset>
+                    <legend>Items</legend>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ItemInForm.Title)
+                        @Html.EditorFor(model => model.ItemInForm.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ItemInForm.Title, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ItemInForm.Detail)
+                        @Html.TextAreaFor(model => model.ItemInForm.Detail, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ItemInForm.Detail, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ItemInForm.Type)
+                        @Html.DropDownListFor(model => model.ItemInForm.Type,
+                            Model.RequestItemTypes,
+                            new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ItemInForm.Type, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ItemInForm.Quantity)
+                        @Html.EditorFor(model => model.ItemInForm.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ItemInForm.Quantity, "", new { @class = "text-danger" })
+                    </div>
+
+                    <button type="submit" name="Command" value="AddMore" class="btn btn-default">Add more...</button>
+                    <button type="submit" name="Command" value="Next" class="btn btn-default">Next</button>
+
+                </fieldset>
+                }
+            </div>
+                @{
+                    var grid = new WebGrid(Model.Items);
+                }
+            <div class="col-xs-8">
+                @grid.GetHtml()
+            </div>
         </div>
-    </div>
-    <div class="col-xs-8">
-        <form action="/Donation/Request3">
-            <fieldset>
-                <legend>What you need?</legend>
-                <div class="form-group">
-                    <label>Category:</label>
-                    <select id="Select1" class="form-control">
-                        <option>Grocery</option>
-                        <option>Books</option>
-                        <option>Furniture</option>
-                        <option>Bedding</option>
-                        <option>Hardware</option>
-                    </select><br />
-                </div>
-                <div class="form-group">
-                    <lable>Quantity:</lable><br />
-                    <input type="text" class="form-control" id="quantity">
-                </div>
-                <div class="form-group">
-                    <lable>Your Expectation:</lable><br />
-                    <textarea id="TextArea1" rows="8" cols="600" class="form-control"></textarea><br />
-                </div>
-                <button type="submit" class="btn btn-default">Next</button>
-            </fieldset>
-        </form>
-    </div>
-</div>

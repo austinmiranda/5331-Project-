@@ -246,8 +246,11 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Utils\ErrorHandling.cs" />
-    <Compile Include="Models\ViewModels\RequestStep1ViewModel.cs" />
-    <Compile Include="Models\ViewModels\RequestViewModel.cs" />
+    <Compile Include="Models\ViewModels\Request\RequestItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\Request\RequestStep1ViewModel.cs" />
+    <Compile Include="Models\ViewModels\Request\RequestStep2ViewModel.cs" />
+    <Compile Include="Models\ViewModels\Request\RequestStepsViewModel.cs" />
+    <Compile Include="Models\ViewModels\Request\RequestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using SocialMarketplace.Models.DAL;
 using SocialMarketplace.Models.Entities;
 using SocialMarketplace.Models.Entities.Enum;
-using SocialMarketplace.Models.ViewModels;
+using SocialMarketplace.Models.ViewModels.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +12,23 @@ namespace SocialMarketplace.Models.BLL
 {
     public class DonationBLO
     {
-        public RequestViewModel CreateEmptyDonationViewModel()
+        public RequestStepsViewModel CreateEmptyDonationViewModel()
         {
-            return new RequestViewModel
+            return new RequestStepsViewModel
             {
-                Categories = GetCategories(),
                 Step1 = new RequestStep1ViewModel
                 {
-                    DateDue = DateTime.Today.AddDays(7)
+                    Categories = GetCategories(),
+                    RequestInForm = new RequestViewModel
+                    {
+                        DateDue = DateTime.Today.AddDays(7)
+                    }
+                },
+                Step2 = new RequestStep2ViewModel
+                {
+                    RequestItemTypes = GetRequestItemTypes(),
+                    ItemInForm = new RequestItemViewModel(),
+                    Items = new List<RequestItemViewModel>()
                 }
             };
         }
@@ -35,15 +44,24 @@ namespace SocialMarketplace.Models.BLL
             }
         }
 
-        public bool SaveStep1Request(RequestViewModel request)
+        public SelectList GetRequestItemTypes()
         {
-            if (!IsStep1RequestValid(request))
-                return false;
+            var types = Enum.GetValues(typeof(RequestItemType)).Cast<RequestItemType>().Select(
+                    x => new { Value = (int)x, Text = x.ToString() }).ToList();
 
-            int categoryId = request.Step1.CategoryId ?? 0;
+            return new SelectList(types, "Value", "Text");
+        }
+
+        public void SaveRequest(RequestViewModel request)
+        {
+            ValidateStep1Request(request);
+
+            int categoryId = request.CategoryId.Value;
 
             using (var context = new ApplicationContext())
             {
+                // TODO: connect with the user
+
                 var category = context.Categories.Where(x => x.Id == categoryId).SingleOrDefault();
                 var area = context.Areas.Where(x => x.Id == 1).SingleOrDefault();
 
@@ -52,43 +70,60 @@ namespace SocialMarketplace.Models.BLL
                     Area = area,
                     Status = RequestStatus.ACTIVE,
                     DateCreated = DateTime.Now,
-                    DateDue = request.Step1.DateDue,
+                    DateDue = request.DateDue,
                     Category = category,
-                    Description = request.Step1.Description,
+                    Description = request.Description,
                     Progress = 0,
-                    Subtitle = request.Step1.Subtitle,
-                    Title = request.Step1.Title,
+                    Subtitle = request.Subtitle,
+                    Title = request.Title,
                     UserId = 1,
                     VisualizationCount = 0
                 };
 
                 context.Requests.Add(entity);
                 context.SaveChanges();
-            }
 
-            return true;
+                request.Id = entity.Id;
+            }
         }
 
-        public bool IsStep1RequestValid(RequestViewModel request)
+        internal void AddRequestItem(RequestItemViewModel requestItem, int Id)
         {
-            //if(request.Step1 == null)
-            //{
-            throw new Exception("Invalid parameters");
-            //}
+            ValidateStep2Request(requestItem);
 
-            //if(String.IsNullOrEmpty(request.Step1.Title))
-            //{
-            //    request.Error = new ErrorViewModel(1, "Title must be informed.");
-            //    return false;
-            //}
+            using (var context = new ApplicationContext())
+            {
+                // TODO: connect with the user
 
-            //if (String.IsNullOrEmpty(request.Step1.Subtitle))
-            //{
-            //    request.Error = new ErrorViewModel(1, "Subtitle must be informed.");
-            //    return false;
-            //}
+                var request = context.Requests.Where(x => x.Id == Id).SingleOrDefault();
 
-            return true;
+                var entity = new RequestItem()
+                {
+                    Title = requestItem.Title,
+                    Detail = requestItem.Detail,
+                    Quantity = requestItem.Quantity,
+                    Type = requestItem.Type,
+                    Request = request
+                };
+
+                context.RequestItems.Add(entity);
+                context.SaveChanges();
+
+                requestItem.Id = entity.Id;
+            }
+
+        }
+
+        public void ValidateStep1Request(RequestViewModel request)
+        {
+            // TODO: Business rules validations
+            //throw new Exception("Invalid parameters");
+        }
+
+        public void ValidateStep2Request(RequestItemViewModel requestItem)
+        {
+            // TODO: Business rules validations
+            //throw new Exception("Invalid parameters");
         }
     }
 }
