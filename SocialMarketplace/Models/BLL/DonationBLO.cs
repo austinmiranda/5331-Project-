@@ -63,6 +63,9 @@ namespace SocialMarketplace.Models.BLL
         {
             ValidateStep1Request(requestMandatory);
 
+            if (requestOptional != null)
+                ValidateStep3Request(requestOptional);
+
             int categoryId = requestMandatory.CategoryId.Value;
 
             using (var context = new ApplicationContext())
@@ -159,14 +162,25 @@ namespace SocialMarketplace.Models.BLL
 
         public void ValidateStep1Request(RequestMandatoryViewModel request)
         {
-            // TODO: Business rules validations
-            //throw new Exception("Invalid parameters");
+            if(request.DateDue <= DateTime.Today)
+                throw new Exception("Due date must be in the future.");
         }
 
         public void ValidateStep2Request(RequestItemViewModel requestItem)
         {
-            // TODO: Business rules validations
-            //throw new Exception("Invalid parameters");
+            if(requestItem.Quantity == 0)
+                throw new Exception("Item quantity cannot be zero.");
+        }
+
+        public void ValidateStep3Request(RequestOptionalViewModel request)
+        {
+            if(request.Photo != null)
+            {
+                String filename = request.Photo.FileName.ToLower();
+
+                if (!filename.EndsWith(".jpg") && !filename.EndsWith(".jpeg") && !filename.EndsWith(".png"))
+                    throw new Exception("Invalid photo format. Must be JPG or PNG.");
+            }
         }
     }
 }

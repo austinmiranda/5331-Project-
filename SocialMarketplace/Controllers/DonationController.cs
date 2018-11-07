@@ -147,7 +147,7 @@ namespace SocialMarketplace.Controllers
             catch (Exception ex)
             {
                 ErrorHandling.AddModelError(ModelState, ex);
-                return View(viewModel.Step2);
+                return View(viewModel.Step3);
             }
         }
 
