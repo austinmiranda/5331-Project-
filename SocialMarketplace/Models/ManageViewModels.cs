@@ -7,6 +7,7 @@ namespace SocialMarketplace.Models
 {
     public class IndexViewModel
     {
+        public int UserId { get; set; }
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }
         public string PhoneNumber { get; set; }
@@ -23,6 +24,24 @@ namespace SocialMarketplace.Models
     public class FactorViewModel
     {
         public string Purpose { get; set; }
+    }
+
+    //Edit User Profile
+    public class EditUserViewModel
+    {
+        public int Id { get; set; }
+
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set;  }
+
+        public string PhoneNumber { get; set; }
+        public string Address { get; set; }
+        public string Company { get; set; }
     }
 
     public class SetPasswordViewModel
