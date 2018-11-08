@@ -1,6 +1,6 @@
-﻿
+﻿@model SocialMarketplace.Models.ViewModels.Home.HomeViewModel
 @{
-                ViewBag.Title = "Home";
+    ViewBag.Title = "Home";
 }
 
 
@@ -39,11 +39,13 @@
 <div class="row">
     <div class="col-sm-10">
         <ul class="nav nav-pills">
-            <li class="active"><a href="#">Grocery</a></li>
-            <li><a href="#">Books</a></li>
-            <li><a href="#">Furniture</a></li>
-            <li><a href="#">Bedding</a></li>
-            <li><a href="#">Hardware</a></li>
+
+            @foreach (var category in Model.Categories) {
+
+                <li><a href="/Home/Index/@category.Key">@category.Value</a></li>
+                
+            }
+            
         </ul>
     </div>
     <div class="col-sm-2">
@@ -60,18 +62,18 @@
     <!-- FEATURED DONATION -->
 
     <div class="col-md-6">
-        <a href="/Donation/Detail">
-            <img src="http://www.openheartkitchen.org/wp-content/uploads/2015/03/donate_food.jpg" class="img-responsive img-rounded" alt="Donate food">
-            <h3>Donate to the community</h3>
+        <a href="/Donation/Detail/@Model.MainRequest.Id">
+            <img src="@Model.MainRequest.Photo" class="img-responsive img-rounded">
+            <h3>@Model.MainRequest.Title</h3>
             <div class="row">
                 <div class="col-sm-8">
-                    <h4>By John Willians</h4>
+                    <h4>@Model.MainRequest.Subtitle</h4>
                 </div>
                 <div class="col-sm-4">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                             aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                            40%
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@Model.MainRequest.Progress"
+                             aria-valuemin="0" aria-valuemax="100" style="width:@Model.MainRequest.Progress%">
+                            @Model.MainRequest.Progress%
                         </div>
                     </div>
                 </div>
@@ -84,75 +86,35 @@
 
     <div class="col-md-6">
         <div class="list-group">
-            <a href="/Donation/Detail" class="list-group-item">
-                <div class="row">
-                    <div class="col-xs-4">
-                        <img src="https://www.jesmondfruitbarn.com.au/wp-content/uploads/2016/10/Jesmond-Fruit-Barn-Oranges.jpg" class="img-responsive img-rounded" alt="Donate food">
-                    </div>
-                    <div class="col-xs-8">
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <h4 class="list-group-item-heading">Help needed</h4>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                         aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                                        20%
+            @foreach (var request in Model.CategoryRequests)
+            {
+                <a href="/Donation/Detail/@request.Id" class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <img src="@request.Photo" class="img-responsive img-rounded">
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <h4 class="list-group-item-heading">@request.Title</h4>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@request.Progress"
+                                             aria-valuemin="0" aria-valuemax="100" style="width:@request.Progress%">
+                                            @request.Progress%
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <p class="list-group-item-text">@request.Subtitle</p>
                         </div>
-                        <p class="list-group-item-text">Monomo onom ono o oomomono</p>
                     </div>
-                </div>
-            </a>
-            <a href="/Donation/Detail" class="list-group-item">
-                <div class="row">
-                    <div class="col-xs-4">
-                        <img src="http://eltonconsulting.com.au/eltonnews/wp-content/uploads/2011/04/CareNSW.png" class="img-responsive img-rounded" alt="Donate food">
-                    </div>
-                    <div class="col-xs-8">
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <h4 class="list-group-item-heading">Elders and Women</h4>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="95"
-                                         aria-valuemin="0" aria-valuemax="100" style="width:95%">
-                                        95%
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="list-group-item-text">Monomo onom ono o omoo mnonmom omno oomomono</p>
-                    </div>
-                </div>
-            </a>
-            <a href="/Donation/DetailCompleted" class="list-group-item">
-                <div class="row">
-                    <div class="col-xs-4">
-                        <img src="https://images.agoramedia.com/everydayhealth/gcms/The-Best-Dairy-Alternatives-for-Crohns-Disease-1440x810.jpg?width=722" class="img-responsive img-rounded" alt="Donate food">
-                    </div>
-                    <div class="col-xs-8">
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <h4 class="list-group-item-heading">Lactose free</h4>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
-                                         aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                        Completed
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="list-group-item-text">Monomo onom ono o oomomonooomomono mo noonooon non</p>
-                    </div>
-                </div>
-            </a>
+                </a>
+
+             }
+
+
         </div>
     </div>
 </div>
@@ -168,73 +130,30 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <a href="/Donation/Detail">
-                <img src="https://mooreandson.com/wp-content/uploads/2016/08/donatedfurniture.jpg" alt="Furniture" class="img-thumbnail" style="width: 100%; height:200px; object-fit: cover;">
-                <div class="caption">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <h4 class="list-group-item-heading">Tables and chairs please</h4>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                     aria-valuemin="0" aria-valuemax="20" style="width:20%">
-                                    20%
+    @foreach (var request in Model.UrgentRequests)
+    {
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a href="/Donation/Detail/@request.Id">
+                    <img src="@request.Photo" class="img-thumbnail" style="width: 100%; height:200px; object-fit: cover;">
+                    <div class="caption">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h4 class="list-group-item-heading">@request.Title</h4>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@request.Progress"
+                                         aria-valuemin="0" aria-valuemax="100" style="width:@request.Progress%">
+                                        @request.Progress%
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <p class="list-group-item-text">@request.Subtitle</p>
                     </div>
-                    <p class="list-group-item-text">Monomo onom ono o omoo mnonmom omno oomomono</p>
-                </div>
-            </a>
+                </a>
+            </div>
         </div>
+    }
     </div>
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <a href="/Donation/Detail">
-                <img src="https://www.rd.com/wp-content/uploads/2016/12/09-Thoughtful-Ways-to-Donate-Your-Used-Books_donation-town_84062652_artisteer-1024x683.jpg" alt="Books" class="img-thumbnail" style="width: 100%; height:200px; object-fit: cover;">
-                <div class="caption">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <h4 class="list-group-item-heading">Math books needed</h4>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="95"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:95%">
-                                    95%
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="list-group-item-text">Monomo onom ono o omoo mnonmom omno oomomono</p>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <a href="/Donation/Detail">
-                <img src="https://newlifekamloops.ca/img/ways-to-donate-online.jpg" alt="Computer" class="img-thumbnail" style="width: 100%; height:200px; object-fit: cover;">
-                <div class="caption">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <h4 class="list-group-item-heading">Computer classes</h4>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="44"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:44%">
-                                    44%
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="list-group-item-text">Monomo onom ono o omoo mnonmom omno oomomono</p>
-                </div>
-            </a>
-        </div>
-    </div>
-</div>
