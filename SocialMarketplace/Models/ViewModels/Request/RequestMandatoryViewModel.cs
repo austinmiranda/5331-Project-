@@ -27,6 +27,5 @@ namespace SocialMarketplace.Models.ViewModels.Request
         [DataType(DataType.Date), DisplayName("Due Date:"), Required(ErrorMessage = "Due Date is required")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateDue { get; set; }
-
     }
 }

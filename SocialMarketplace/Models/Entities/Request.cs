@@ -46,12 +46,13 @@ namespace SocialMarketplace.Models.Entities
         public DateTime DateDue { get; set; }
 
         [Required]
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         [Required, Column("User_Id")]
         public int UserId { get; set; }
 
         [Required]
-        public Area Area { get; set; }
+        public virtual Area Area { get; set; }
+        public virtual ICollection<RequestItem> Items { get; set; }
     }
 }

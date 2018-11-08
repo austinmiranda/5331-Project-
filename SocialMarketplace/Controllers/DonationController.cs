@@ -214,9 +214,21 @@ namespace SocialMarketplace.Controllers
             return View();
         }
 
-        public ActionResult Detail()
+        public ActionResult Detail(int id)
         {
-            return View();
+            try
+            {
+                var detailViewModel = donationBLO.GetRequest(id);
+
+                ViewBag.Title = detailViewModel.Title;
+
+                return View(detailViewModel);
+            }
+            catch(Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View();
+            }
         }
 
         public ActionResult DetailCompleted()

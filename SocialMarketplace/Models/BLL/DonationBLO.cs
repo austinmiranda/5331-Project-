@@ -172,7 +172,48 @@ namespace SocialMarketplace.Models.BLL
 
                 requestItem.Id = entity.Id;
             }
+        }
 
+        public DetailViewModel GetRequest(int id)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var request = context.Requests
+                    .Where(x => x.Id == id).SingleOrDefault();
+
+                request.VisualizationCount++;
+                context.SaveChanges();
+
+                var detailViewModel = new DetailViewModel
+                {
+                    Id = request.Id,
+                    CategoryId = request.Category.Id,
+                    CategoryName = request.Category.Name,
+                    Title = request.Title,
+                    Subtitle = request.Subtitle,
+                    Description = request.Description,
+                    DateDue = request.DateDue,
+                    Keywords = request.Keywords,
+                    PhotoURL = $"/Donation/Photo/{request.Id}",
+                    VideoURL = request.VideoURL,
+                    Progress = request.Progress,
+                    Items = new List<RequestItemViewModel>()
+                };
+
+                foreach (var item in request.Items)
+                {
+                    detailViewModel.Items.Add(new RequestItemViewModel
+                    {
+                        Id = item.Id,
+                        Title = item.Title,
+                        Detail = item.Detail,
+                        Type = item.Type,
+                        Quantity = item.Quantity
+                    });
+                };
+
+                return detailViewModel;
+            }
         }
 
         public void ValidateStep1Request(RequestMandatoryViewModel request)
