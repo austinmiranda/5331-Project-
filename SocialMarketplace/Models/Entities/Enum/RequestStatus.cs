@@ -7,7 +7,8 @@ namespace SocialMarketplace.Models.Entities.Enum
 {
     public enum RequestStatus
     {
-        INACTIVE = 0,
-        ACTIVE = 1
+        IN_PROGRESS = 0,
+        INACTIVE = 1,
+        ACTIVE = 2
     }
 }

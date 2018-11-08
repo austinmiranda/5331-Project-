@@ -19,7 +19,7 @@ namespace SocialMarketplace.Models.Entities
         [StringLength(300), Required]
         public String Subtitle { get; set; }
 
-        [Required]
+        [StringLength(4000), Required]
         public String Description { get; set; }
 
         [StringLength(300)]

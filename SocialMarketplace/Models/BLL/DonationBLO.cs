@@ -63,8 +63,13 @@ namespace SocialMarketplace.Models.BLL
         {
             ValidateStep1Request(requestMandatory);
 
+            RequestStatus status = RequestStatus.IN_PROGRESS;
+
             if (requestOptional != null)
+            {
                 ValidateStep3Request(requestOptional);
+                status = RequestStatus.ACTIVE;
+            }
 
             int categoryId = requestMandatory.CategoryId.Value;
 
@@ -80,7 +85,7 @@ namespace SocialMarketplace.Models.BLL
                     entity = context.Requests.Where(x => x.Id == requestMandatory.Id).SingleOrDefault();
 
                     entity.Area = area;
-                    entity.Status = RequestStatus.ACTIVE;
+                    entity.Status = status;
                     entity.DateCreated = DateTime.Now;
                     entity.DateDue = requestMandatory.DateDue;
                     entity.Category = category;
@@ -96,7 +101,7 @@ namespace SocialMarketplace.Models.BLL
                     entity = new Request()
                     {
                         Area = area,
-                        Status = RequestStatus.ACTIVE,
+                        Status = status,
                         DateCreated = DateTime.Now,
                         DateDue = requestMandatory.DateDue,
                         Category = category,
@@ -213,6 +218,40 @@ namespace SocialMarketplace.Models.BLL
                 };
 
                 return detailViewModel;
+            }
+        }
+
+        internal void SaveQuestion(QuestionViewModel viewModel)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var request = context.Requests.Where(x => x.Id == viewModel.RequestId).SingleOrDefault();
+
+                context.Questions.Add(new Question
+                {
+                    Description = viewModel.Description,
+                    Type = QuestionType.NOT_ANSWERED,
+                    Request = request,
+                    UserId = SessionFacade.User.Identity.GetUserId<int>()
+                });
+
+                context.SaveChanges();
+            }
+        }
+
+        internal QuestionViewModel CreateEmptyQuestionViewModel(int id)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var request = context.Requests.Where(x => x.Id == id).SingleOrDefault();
+
+                return new QuestionViewModel
+                {
+                    RequestId = request.Id,
+                    Title = request.Title,
+                    Subtitle = request.Subtitle,
+                    Description = String.Empty
+                };
             }
         }
 

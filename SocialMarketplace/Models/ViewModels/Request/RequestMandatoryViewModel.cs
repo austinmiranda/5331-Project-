@@ -21,7 +21,7 @@ namespace SocialMarketplace.Models.ViewModels.Request
         [StringLength(300), Required(ErrorMessage = "Subtitle is required"), DisplayName("Sub-title:")]
         public String Subtitle { get; set; }
 
-        [Required(ErrorMessage = "Description is required"), DisplayName("Description:")]
+        [StringLength(4000), Required(ErrorMessage = "Description is required"), DisplayName("Description:")]
         public String Description { get; set; }
 
         [DataType(DataType.Date), DisplayName("Due Date:"), Required(ErrorMessage = "Due Date is required")]

@@ -1,0 +1,39 @@
+﻿@{
+    @model SocialMarketplace.Models.ViewModels.Request.QuestionViewModel
+
+    ViewBag.Title = "Ask a Question";
+}
+
+<h3 style="text-align:center">Question Form</h3><br />
+<div class="row">
+    <div class="col-xs-8">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            if (!ViewData.ModelState.IsValid)
+            {
+                @Html.ValidationSummary(true, "Please correct the following information:", new { @class = "text-danger" })
+            }
+
+        <fieldset>
+            <h3>@Model.Title</h3>
+            <h4>@Model.Subtitle</h4>
+
+            <p><strong>@ViewBag.Result</strong></p>
+
+            <div class="form-group">
+                @Html.HiddenFor(model => model.RequestId)
+
+                @Html.LabelFor(model => model.Description)
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+
+            <button type="submit" class="btn btn-default">Submit Question</button>
+
+        </fieldset>
+        }
+    </div>
+</div>

@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201811070549032_Temp.Designer.cs">
       <DependentUpon>201811070549032_Temp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811080350080_Question-Adjustment.cs" />
+    <Compile Include="Migrations\201811080350080_Question-Adjustment.Designer.cs">
+      <DependentUpon>201811080350080_Question-Adjustment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BLL\DonationBLO.cs" />
@@ -251,6 +255,7 @@
     <Compile Include="Models\Utils\ErrorHandling.cs" />
     <Compile Include="Models\Utils\SessionFacade.cs" />
     <Compile Include="Models\ViewModels\Request\DetailViewModel.cs" />
+    <Compile Include="Models\ViewModels\Request\QuestionViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestItemViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestOptionalViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestStep1ViewModel.cs" />
@@ -339,6 +344,7 @@
     <Content Include="Views\Home\TermsOfUse.cshtml" />
     <Content Include="Views\Home\PrivacyCookiesPolicy.cshtml" />
     <Content Include="Views\Manage\Edit.cshtml" />
+    <Content Include="Views\Donation\Question.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -375,6 +381,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811070549032_Temp.resx">
       <DependentUpon>201811070549032_Temp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811080350080_Question-Adjustment.resx">
+      <DependentUpon>201811080350080_Question-Adjustment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

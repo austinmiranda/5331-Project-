@@ -12,11 +12,17 @@ namespace SocialMarketplace.Models.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+
+        [StringLength(4000), Required]
         public String Description { get; set; }
+
         [Required]
         public QuestionType Type { get; set; }
+
         [Required, Column("User_Id")]
         public int UserId { get; set; }
+
+        [Required]
+        public Request Request { get; set; }
     }
 }

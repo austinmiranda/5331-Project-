@@ -189,7 +189,7 @@ namespace SocialMarketplace.Controllers
             }
         }
 
-        public ActionResult Response()
+        public ActionResult Response(int id)
         {
             return View();
         }
@@ -225,6 +225,56 @@ namespace SocialMarketplace.Controllers
                 return View(detailViewModel);
             }
             catch(Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Detail(int id, String command)
+        {
+            try
+            {
+                if(command.Equals("Question"))
+                    return RedirectToAction("Question", new { id });
+
+                if(command.Equals("Donate"))
+                    return RedirectToAction("Response", new { id });
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View();
+            }
+        }
+
+        public ActionResult Question(int id, String result)
+        {
+            try
+            {
+                ViewBag.Result = result;
+                return View(donationBLO.CreateEmptyQuestionViewModel(id));
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View();
+            }
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Question(QuestionViewModel viewModel)
+        {
+            try
+            {
+                donationBLO.SaveQuestion(viewModel);
+                return RedirectToAction("Question", 
+                    new { id = viewModel.RequestId, result = "Thank you for your question." });
+            }
+            catch (Exception ex)
             {
                 ErrorHandling.AddModelError(ModelState, ex);
                 return View();
