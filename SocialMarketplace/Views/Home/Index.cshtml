@@ -11,7 +11,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <h3>Total Donors</h3>
-                <h4>1.234</h4>
+                <h4>@Html.DisplayFor(model => model.Statistics.TotalDonors)</h4>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <h3>Total Donations</h3>
-                <h4>2.312</h4>
+                <h4>@Html.DisplayFor(model => model.Statistics.TotalDonations)</h4>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <h3>Live Donations</h3>
-                <h4>234</h4>
+                <h4>@Html.DisplayFor(model => model.Statistics.ActiveDonations)</h4>
             </div>
         </div>
     </div>
@@ -39,11 +39,18 @@
 <div class="row">
     <div class="col-sm-10">
         <ul class="nav nav-pills">
+            <li @(Model.CategoryId == null ? "class=active" : "")><a href="/">All</a></li>
 
             @foreach (var category in Model.Categories)
             {
+                string selected = string.Empty;
 
-                <li><a href="/Home/Index/@category.Key">@category.Value</a></li>
+                if (category.Selected)
+                {
+                    selected = "class=active";
+                }
+
+                <li @selected><a href="/Home/Index/@category.Id">@category.Name</a></li>
 
             }
 

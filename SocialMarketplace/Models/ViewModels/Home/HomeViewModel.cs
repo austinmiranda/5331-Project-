@@ -8,7 +8,9 @@ namespace SocialMarketplace.Models.ViewModels.Home
 {
     public class HomeViewModel
     {
-        public Dictionary<int, String> Categories { get; set; }
+        public StatisticsViewModel Statistics { get; set; }
+
+        public IList<CategoryViewModel> Categories { get; set; }
 
         public RequestViewModel MainRequest { get; set; }
 
@@ -16,5 +18,6 @@ namespace SocialMarketplace.Models.ViewModels.Home
 
         public IList<RequestViewModel> UrgentRequests { get; set; }
 
+        public int? CategoryId { get; internal set; }
     }
 }

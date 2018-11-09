@@ -1,6 +1,7 @@
 ﻿using SocialMarketplace.Models.BLL;
 using SocialMarketplace.Models.DAL;
 using SocialMarketplace.Models.Entities;
+using SocialMarketplace.Models.Utils;
 using SocialMarketplace.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,22 @@ using System.Web.Mvc;
 
 namespace SocialMarketplace.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly HomeBLO homeBLO = new HomeBLO();
 
         public ActionResult Index(int? id)
         {
-            var viewModel = homeBLO.CreateHomeViewModel(id);
-
-            return View(viewModel);
+            try
+            {
+                var viewModel = homeBLO.CreateHomeViewModel(id);
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View();
+            }
         }
 
         public ActionResult About()

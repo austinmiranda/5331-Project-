@@ -250,10 +250,12 @@
     <Compile Include="Models\Entities\ResponseItem.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\Home\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\HomeViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\RequestViewModel.cs" />
     <Compile Include="Models\Utils\ErrorHandling.cs" />
     <Compile Include="Models\Utils\SessionFacade.cs" />
+    <Compile Include="Models\ViewModels\Home\StatisticsViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\DetailViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\QuestionViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestItemViewModel.cs" />

@@ -1,4 +1,5 @@
 ﻿using SocialMarketplace.Models.DAL;
+using SocialMarketplace.Models.Entities.Enum;
 using SocialMarketplace.Models.ViewModels.Home;
 using System;
 using System.Collections.Generic;
@@ -11,23 +12,54 @@ namespace SocialMarketplace.Models.BLL
     public class HomeBLO
     {
         public HomeViewModel CreateHomeViewModel(int? categoryId) {
-            var homeViewModel = new HomeViewModel();
 
-            homeViewModel.Categories = GetCategories();
-
-            homeViewModel.MainRequest = GetMainRequest(categoryId ?? 1);
-            homeViewModel.CategoryRequests = GetCategoryList(categoryId ?? 1);
-            homeViewModel.UrgentRequests = GetUrgentCategoryList();
+            var homeViewModel = new HomeViewModel
+            {
+                Statistics = GetStatistics(),
+                CategoryId = categoryId,
+                Categories = GetCategories(categoryId),
+                MainRequest = GetMainRequest(categoryId),
+                CategoryRequests = GetCategoryList(categoryId),
+                UrgentRequests = GetUrgentCategoryList()
+            };
 
             return homeViewModel;
         }
 
-        public Dictionary<int,String> GetCategories()
+        public StatisticsViewModel GetStatistics()
         {
             using (var context = new ApplicationContext())
             {
-                var categories = context.Categories.ToDictionary(x => x.Id, x => x.Name);
-                
+                return new StatisticsViewModel
+                {
+                    TotalDonations = context.Responses
+                        .Where(x => x.Status != ResponseStatus.CANCELLED)
+                        .Count(),
+
+                    ActiveDonations = context.Requests
+                        .Where(x => x.Status == RequestStatus.ACTIVE)
+                        .Count(),
+
+                    TotalDonors = context.Responses
+                        .Where(x => x.Status != ResponseStatus.CANCELLED)
+                        .Select(x => x.UserId)
+                        .Distinct()
+                        .Count()
+                };
+            }
+        }
+
+        public IList<CategoryViewModel> GetCategories(int? categoryId)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var categories = context.Categories
+                    .Select(x => new CategoryViewModel {
+                        Id = x.Id,
+                        Name = x.Name,
+                        Selected = x.Id == categoryId
+                    }).ToList();
+
                 return categories;
             }
         }
@@ -35,9 +67,14 @@ namespace SocialMarketplace.Models.BLL
         {
             using (var context = new ApplicationContext())
             {
-                RequestViewModel mainRequest = context.Requests
-                    .Where(x => x.Category.Id == Id &&
-                        x.Status == Entities.Enum.RequestStatus.ACTIVE)
+                var query = context.Requests
+                    .Where(x => x.Status == Entities.Enum.RequestStatus.ACTIVE);
+
+                if (Id.HasValue)
+                    query = query
+                        .Where(x => x.Category.Id == Id);
+
+                RequestViewModel mainRequest = query
                     .OrderByDescending(x => x.VisualizationCount)
                     .Take(1)
                     .Select(x => new RequestViewModel
@@ -57,9 +94,14 @@ namespace SocialMarketplace.Models.BLL
         {
             using (var context = new ApplicationContext())
             {
-                List<RequestViewModel> topThreeRequests = context.Requests
-                    .Where(x => x.Category.Id == Id &&
-                        x.Status == Entities.Enum.RequestStatus.ACTIVE)
+                var query = context.Requests
+                    .Where(x => x.Status == Entities.Enum.RequestStatus.ACTIVE);
+
+                if (Id.HasValue)
+                    query = query
+                        .Where(x => x.Category.Id == Id);
+
+                List<RequestViewModel> topThreeRequests = query
                     .OrderByDescending(x => x.VisualizationCount)
                     .Skip(1)
                     .Take(3)
