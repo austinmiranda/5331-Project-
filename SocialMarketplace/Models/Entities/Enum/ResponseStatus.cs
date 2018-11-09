@@ -8,6 +8,7 @@ namespace SocialMarketplace.Models.Entities.Enum
     public enum ResponseStatus
     {
         NEW = 1,
-        ACCEPTED = 2
+        ACCEPTED = 2,
+        CANCELLED = 3
     }
 }

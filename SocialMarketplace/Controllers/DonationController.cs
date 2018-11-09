@@ -24,8 +24,13 @@ namespace SocialMarketplace.Controllers
         {
             try
             {
-                var viewModel = donationBLO.CreateEmptyDonationViewModel();
-                SessionFacade.RequestSteps = viewModel;
+                var viewModel = SessionFacade.RequestSteps;
+
+                if(viewModel == null)
+                {
+                    viewModel = donationBLO.CreateEmptyDonationViewModel();
+                    SessionFacade.RequestSteps = viewModel;
+                }
 
                 return View(viewModel.Step1);
             }
@@ -96,10 +101,16 @@ namespace SocialMarketplace.Controllers
                     return View(viewModel.Step2);
                 }
 
+                if(request.Command.Equals("Back"))
+                {
+                    return RedirectToAction("RequestStep1");
+                }
+
                 if (ModelState.IsValid)
                 {
                     donationBLO.AddRequestItem(viewModel.Step2.ItemInForm, viewModel.RequestId);
                     viewModel.Step2.Items.Add(viewModel.Step2.ItemInForm);
+                    viewModel.Step2.ItemInForm = new RequestItemViewModel();
 
                     if(request.Command.Equals("AddMore"))
                     {
@@ -144,11 +155,17 @@ namespace SocialMarketplace.Controllers
 
             try
             {
+                if (request.Command.Equals("Back"))
+                {
+                    return RedirectToAction("RequestStep2");
+                }
+
                 viewModel.Step3.RequestOptional = request.RequestOptional;
 
                 if (ModelState.IsValid)
                 {
                     donationBLO.SaveRequest(viewModel.Step1.RequestInForm, viewModel.Step3.RequestOptional);
+                    SessionFacade.RequestSteps = null;
 
                     return RedirectToAction("FinishAskForDonation");
                 }

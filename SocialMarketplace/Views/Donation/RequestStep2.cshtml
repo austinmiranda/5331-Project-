@@ -53,8 +53,9 @@
                     @Html.ValidationMessageFor(model => model.ItemInForm.Quantity, "", new { @class = "text-danger" })
                 </div>
 
-                <button type="submit" name="Command" value="AddMore" class="btn btn-default">Add more...</button>
-                <button type="submit" name="Command" value="Next" class="btn btn-default">Next</button>
+                <button type="submit" name="Command" value="Back" class="btn btn-default"><< Back</button>
+                <button type="submit" name="Command" value="AddMore" class="btn btn-default">Add more items...</button>
+                <button type="submit" name="Command" value="Next" class="btn btn-success pull-right">Next >></button>
 
             </fieldset>
         </div>
