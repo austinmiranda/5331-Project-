@@ -230,6 +230,10 @@
     <Compile Include="Migrations\201811080350080_Question-Adjustment.Designer.cs">
       <DependentUpon>201811080350080_Question-Adjustment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811090328427_newdb.cs" />
+    <Compile Include="Migrations\201811090328427_newdb.Designer.cs">
+      <DependentUpon>201811090328427_newdb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BLL\DonationBLO.cs" />
@@ -384,6 +388,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811080350080_Question-Adjustment.resx">
       <DependentUpon>201811080350080_Question-Adjustment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811090328427_newdb.resx">
+      <DependentUpon>201811090328427_newdb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
