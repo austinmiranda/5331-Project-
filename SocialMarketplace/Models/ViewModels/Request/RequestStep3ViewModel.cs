@@ -8,5 +8,6 @@ namespace SocialMarketplace.Models.ViewModels.Request
     public class RequestStep3ViewModel
     {
         public RequestOptionalViewModel RequestOptional { get; set; }
+        public String Command { get; set; }
     }
 }

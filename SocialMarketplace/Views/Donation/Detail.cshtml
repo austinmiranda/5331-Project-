@@ -15,23 +15,23 @@
     </div>
 
     <div class="col-md-4">
-        @foreach (var item in Model.Items)
-        {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Qty</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
                     <tr>
                         <td>@item.Title - @item.Detail</td>
                         <td>@item.Quantity</td>
                     </tr>
-                </tbody>
-            </table>
-        }
+                }
+            </tbody>
+        </table>
 
         <div class="progress">
             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@Model.Progress"

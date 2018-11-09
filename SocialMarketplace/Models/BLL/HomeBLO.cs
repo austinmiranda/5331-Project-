@@ -19,8 +19,8 @@ namespace SocialMarketplace.Models.BLL
                 CategoryId = categoryId,
                 Categories = GetCategories(categoryId),
                 MainRequest = GetMainRequest(categoryId),
-                CategoryRequests = GetCategoryList(categoryId),
-                UrgentRequests = GetUrgentCategoryList()
+                CategoryRequests = GetCategoryCategoryList(categoryId),
+                UrgentRequests = GetUrgentRequestList()
             };
 
             return homeViewModel;
@@ -90,7 +90,7 @@ namespace SocialMarketplace.Models.BLL
                 return mainRequest;
             }
         }
-        public IList<RequestViewModel> GetCategoryList(int? Id)
+        public IList<RequestViewModel> GetCategoryCategoryList(int? Id)
         {
             using (var context = new ApplicationContext())
             {
@@ -119,11 +119,12 @@ namespace SocialMarketplace.Models.BLL
             }
         }
 
-        public IList<RequestViewModel> GetUrgentCategoryList()
+        public IList<RequestViewModel> GetUrgentRequestList()
         {
             using (var context = new ApplicationContext())
             {
                 List<RequestViewModel> urgentThreeRequests = context.Requests
+                    .Where(x => x.Status == Entities.Enum.RequestStatus.ACTIVE)
                     .OrderByDescending(x => x.DateDue).Take(3)
                     .Select(x => new RequestViewModel
                     {
