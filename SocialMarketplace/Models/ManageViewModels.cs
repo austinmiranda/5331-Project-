@@ -8,6 +8,8 @@ namespace SocialMarketplace.Models
     public class IndexViewModel
     {
         public int UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }
         public string PhoneNumber { get; set; }
