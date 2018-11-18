@@ -58,9 +58,10 @@ namespace SocialMarketplace
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
            // Uncomment the following lines to enable logging in with third party login providers
-            app.UseMicrosoftAccountAuthentication(
-                clientId: "f3819c63-4a37-498f-8954-d8b4aa9a9917",
-                clientSecret: "lcIJCOHY45)%}fmmblR653_");
+
+            //app.UseMicrosoftAccountAuthentication(
+            //    clientId: "f3819c63-4a37-498f-8954-d8b4aa9a9917",
+            //    clientSecret: "lcIJCOHY45)%}fmmblR653_");
 
           
 
@@ -78,7 +79,6 @@ namespace SocialMarketplace
                 ClientSecret = "FjdLveE-1BQ2cT0Prb8lZd2R"
             });
 
-            //createRolesandUsers();
             createRole();
 
 
