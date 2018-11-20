@@ -1,0 +1,18 @@
+﻿=================================================
+SOCIAL MARKETPLACE
+
+BY Austin Miranda, Dongxue Hao, Henrique Tensfeld
+
+OCTOBER 2018
+=================================================
+
+HOW TO RUN THIS APPLICATION
+
+1) Check in the web.config file if the database configuration matches your
+machine. There are 2 connection strings to check: IdentityDbContext and
+ApplicationContext.
+
+2) Create tables and seed data: go to the Packager Manager Console, and type
+
+          Update-Database
+

@@ -125,7 +125,7 @@ namespace SocialMarketplace.Models.BLL
             {
                 List<RequestViewModel> urgentThreeRequests = context.Requests
                     .Where(x => x.Status == Entities.Enum.RequestStatus.ACTIVE)
-                    .OrderByDescending(x => x.DateDue).Take(3)
+                    .OrderBy(x => x.DateDue).Take(3)
                     .Select(x => new RequestViewModel
                     {
                         Id = x.Id,
