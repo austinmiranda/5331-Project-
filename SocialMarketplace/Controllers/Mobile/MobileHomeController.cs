@@ -14,7 +14,7 @@ namespace SocialMarketplace.Controllers.Mobile
     {
         private readonly HomeBLO homeBLO = new HomeBLO();
 
-        // GET: api/Home
+        [HttpGet]
         public HomeViewModel Get(int? id)
         {
             try
