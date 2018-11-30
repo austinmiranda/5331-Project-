@@ -52,5 +52,15 @@ namespace SocialMarketplace.Models.Utils
                 HttpContext.Current.Session[AREA] = value;
             }
         }
+
+        public static String RootUrl
+        {
+            get
+            {
+                return string.Format("{0}://{1}",
+                    HttpContext.Current.Request.Url.Scheme,
+                    HttpContext.Current.Request.Url.Authority);
+            }
+        }
     }
 }

@@ -61,14 +61,14 @@ namespace SocialMarketplace
             // Uncomment the following lines to enable logging in with third party login providers
 
             // LOCAL
-            app.UseMicrosoftAccountAuthentication(
-                clientId: "f3819c63-4a37-498f-8954-d8b4aa9a9917",
-                clientSecret: "lcIJCOHY45)%}fmmblR653_");
+            //app.UseMicrosoftAccountAuthentication(
+            //    clientId: "f3819c63-4a37-498f-8954-d8b4aa9a9917",
+            //    clientSecret: "lcIJCOHY45)%}fmmblR653_");
 
             // https://socialmarketplace.azurewebsites.net/
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "300801301561-8g7jvs49jicaof6fr7sm87n3lb7n1pr6.apps.googleusercontent.com",
-            //    clientSecret: "zpaebqC9K3sJWBbAt9ExhYUX");
+            app.UseMicrosoftAccountAuthentication(
+                clientId: "300801301561-8g7jvs49jicaof6fr7sm87n3lb7n1pr6.apps.googleusercontent.com",
+                clientSecret: "zpaebqC9K3sJWBbAt9ExhYUX");
 
 
             //app.UseTwitterAuthentication(

@@ -70,7 +70,7 @@ namespace SocialMarketplace.Models.BLL
                 var query = context.Requests
                     .Where(x => x.Status == Entities.Enum.RequestStatus.ACTIVE);
 
-                if (Id.HasValue)
+                if (Id.HasValue && Id > 0)
                     query = query
                         .Where(x => x.Category.Id == Id);
 
@@ -82,7 +82,7 @@ namespace SocialMarketplace.Models.BLL
                         Id = x.Id,
                         Title = x.Title, 
                         Subtitle = x.Subtitle,
-                        Photo = "/Donation/Photo/" + x.Id,
+                        Photo = Utils.SessionFacade.RootUrl + "/Donation/Photo/" + x.Id,
                         Progress = x.Progress,
                         CategoryId = x.Category.Id
                     }).SingleOrDefault();
@@ -97,7 +97,7 @@ namespace SocialMarketplace.Models.BLL
                 var query = context.Requests
                     .Where(x => x.Status == Entities.Enum.RequestStatus.ACTIVE);
 
-                if (Id.HasValue)
+                if (Id.HasValue && Id > 0)
                     query = query
                         .Where(x => x.Category.Id == Id);
 
@@ -110,7 +110,7 @@ namespace SocialMarketplace.Models.BLL
                         Id = x.Id,
                         Title = x.Title,
                         Subtitle = x.Subtitle,
-                        Photo = "/Donation/Photo/" + x.Id,
+                        Photo = Utils.SessionFacade.RootUrl + "/Donation/Photo/" + x.Id,
                         Progress = x.Progress,
                         CategoryId = x.Category.Id
                     }).ToList();
@@ -131,7 +131,7 @@ namespace SocialMarketplace.Models.BLL
                         Id = x.Id,
                         Title = x.Title,
                         Subtitle = x.Subtitle,
-                        Photo = "/Donation/Photo/" + x.Id,
+                        Photo = Utils.SessionFacade.RootUrl + "/Donation/Photo/" + x.Id,
                         Progress = x.Progress,
                         CategoryId = x.Category.Id
                     }).ToList();

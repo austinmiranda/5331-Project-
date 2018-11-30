@@ -237,6 +237,9 @@ namespace SocialMarketplace.Controllers
             {
                 var detailViewModel = donationBLO.GetRequest(id);
 
+                if (detailViewModel == null)
+                    return HttpNotFound();
+
                 ViewBag.Title = detailViewModel.Title;
 
                 return View(detailViewModel);

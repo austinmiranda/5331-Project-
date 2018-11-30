@@ -21,5 +21,7 @@ namespace SocialMarketplace.Models.Entities
         public Request Request { get; set; }
         [Required, Column("User_Id")]
         public int UserId { get; set; }
+        public virtual ICollection<ResponseItem> Items { get; set; }
+
     }
 }

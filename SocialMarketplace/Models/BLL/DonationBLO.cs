@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using SocialMarketplace.Models.ViewModels.Response;
 
 namespace SocialMarketplace.Models.BLL
 {
@@ -57,6 +58,66 @@ namespace SocialMarketplace.Models.BLL
                     x => new { Value = (int)x, Text = x.ToString() }).ToList();
 
             return new SelectList(types, "Value", "Text");
+        }
+
+        public void SaveResponse(ResponseViewModel responseViewModel)
+        {
+            ValidateResponse(responseViewModel);
+
+            using (var context = new ApplicationContext())
+            {
+                var request = context.Requests.Where(x => x.Id == responseViewModel.RequestId).SingleOrDefault();
+
+                var response = new Response
+                {
+                    Description = responseViewModel.Description,
+                    Status = ResponseStatus.NEW,
+                    Request = request,
+                    DateCreated = DateTime.Now,
+                    Items = new List<ResponseItem>(),
+                    //UserId = SessionFacade.User.Identity.GetUserId<int>()
+                    UserId = 1
+                };
+
+                //context.SaveChanges();
+
+                foreach (var item in responseViewModel.Items)
+                {
+                    var requestItem = request.Items.Where(x => x.Id == item.RequestItemId).SingleOrDefault();
+
+                    response.Items.Add(new ResponseItem
+                    {
+                        Quantity = item.Quantity,
+                        //Response = response,
+                        RequestItem = requestItem
+                    });
+                }
+
+                context.Responses.Add(response);
+
+                context.SaveChanges();
+
+                responseViewModel.Id = response.Id;
+            };
+        }
+
+        private void ValidateResponse(ResponseViewModel responseViewModel)
+        {
+            if(string.IsNullOrEmpty(responseViewModel.Description))
+                throw new Exception("Description must be provided.");
+
+            if (responseViewModel.Items.Count == 0)
+                throw new Exception("At least one item must be donated.");
+
+            foreach(var responseItem in responseViewModel.Items)
+            {
+                if(responseItem.Quantity == 0)
+                    throw new Exception("At least one item must be donated.");
+
+                if(responseItem.RequestItemId == 0)
+                    throw new Exception("Invalid item.");
+            }
+
         }
 
         public void SaveRequest(RequestMandatoryViewModel requestMandatory, RequestOptionalViewModel requestOptional = null)
@@ -184,7 +245,10 @@ namespace SocialMarketplace.Models.BLL
             using (var context = new ApplicationContext())
             {
                 var request = context.Requests
-                    .Where(x => x.Id == id).SingleOrDefault();
+                    .Where(x => x.Id == id && (x.Status == RequestStatus.ACTIVE || x.Status == RequestStatus.COMPLETED)).SingleOrDefault();
+
+                if (request == null)
+                    return null;
 
                 request.VisualizationCount++;
                 context.SaveChanges();
@@ -199,7 +263,7 @@ namespace SocialMarketplace.Models.BLL
                     Description = request.Description,
                     DateDue = request.DateDue,
                     Keywords = request.Keywords,
-                    PhotoURL = $"/Donation/Photo/{request.Id}",
+                    PhotoURL = $"{SessionFacade.RootUrl}/Donation/Photo/{request.Id}",
                     VideoURL = request.VideoURL,
                     Progress = request.Progress,
                     Items = new List<RequestItemViewModel>()

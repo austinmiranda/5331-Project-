@@ -208,7 +208,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\api\HomeController.cs" />
+    <Compile Include="Controllers\Mobile\MobileAccountController.cs" />
+    <Compile Include="Controllers\Mobile\MobileDonationController.cs" />
+    <Compile Include="Controllers\Mobile\MobileHomeController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -280,6 +282,8 @@
     <Compile Include="Models\ViewModels\Request\RequestStep3ViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestStepsViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestMandatoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\Response\ResponseItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\Response\ResponseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -369,6 +373,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\MobileDonation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
