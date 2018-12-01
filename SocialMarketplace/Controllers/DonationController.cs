@@ -53,7 +53,7 @@ namespace SocialMarketplace.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    donationBLO.SaveRequest(viewModel.Step1.RequestInForm);
+                    donationBLO.SaveRequest(User.Identity.GetUserId<int>(), viewModel.Step1.RequestInForm);
                     viewModel.RequestId = viewModel.Step1.RequestInForm.Id.Value;
                     return RedirectToAction("RequestStep2");
                 }
@@ -164,7 +164,7 @@ namespace SocialMarketplace.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    donationBLO.SaveRequest(viewModel.Step1.RequestInForm, viewModel.Step3.RequestOptional);
+                    donationBLO.SaveRequest(User.Identity.GetUserId<int>(), viewModel.Step1.RequestInForm, viewModel.Step3.RequestOptional);
                     SessionFacade.RequestSteps = null;
 
                     return RedirectToAction("FinishAskForDonation");
@@ -290,7 +290,7 @@ namespace SocialMarketplace.Controllers
         {
             try
             {
-                donationBLO.SaveQuestion(viewModel);
+                donationBLO.SaveQuestion(User.Identity.GetUserId<int>(), viewModel);
                 return RedirectToAction("Question", 
                     new { id = viewModel.RequestId, result = "Thank you for your question." });
             }

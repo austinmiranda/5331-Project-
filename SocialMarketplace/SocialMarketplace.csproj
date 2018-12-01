@@ -217,6 +217,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\Mobile\MobileAccountController.cs" />
     <Compile Include="Controllers\Mobile\MobileDonationController.cs" />
     <Compile Include="Controllers\Mobile\MobileHomeController.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="Models\Entities\ResponseItem.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Utils\ApiAuthorize.cs" />
     <Compile Include="Models\Utils\AuthRepository.cs" />
     <Compile Include="Models\ViewModels\Home\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\HomeViewModel.cs" />

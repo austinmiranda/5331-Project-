@@ -8,10 +8,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using SocialMarketplace.Models.Utils;
 
 namespace SocialMarketplace.Controllers.Mobile
 {
-    public class MobileDonationController : ApiController
+    public class MobileDonationController : BaseApiController
     {
         private readonly DonationBLO donationBLO = new DonationBLO();
 
@@ -33,12 +37,12 @@ namespace SocialMarketplace.Controllers.Mobile
             }
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize, ApiAuthorize]
         public ResponseViewModel Donate(ResponseViewModel responseViewModel)
         {
             try
             {
-                donationBLO.SaveResponse(responseViewModel);
+                donationBLO.SaveResponse(UserId, responseViewModel);
                 return responseViewModel;
             }
             catch(Exception)

@@ -11,7 +11,6 @@ namespace SocialMarketplace.Models.Utils
     public static class SessionFacade
     {
         const String REQUEST_STEPS = "RequestSteps";
-        const String USER = "User";
         const String AREA = "Area";
 
         public static RequestStepsViewModel RequestSteps {
@@ -23,19 +22,6 @@ namespace SocialMarketplace.Models.Utils
             set
             {
                 HttpContext.Current.Session[REQUEST_STEPS] = value;
-            }
-        }
-
-        public static System.Security.Principal.IPrincipal User
-        {
-            get
-            {
-                return (System.Security.Principal.IPrincipal)HttpContext.Current.Session[USER];
-            }
-
-            set
-            {
-                HttpContext.Current.Session[USER] = value;
             }
         }
 

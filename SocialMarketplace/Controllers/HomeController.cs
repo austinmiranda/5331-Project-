@@ -3,6 +3,7 @@ using SocialMarketplace.Models.DAL;
 using SocialMarketplace.Models.Entities;
 using SocialMarketplace.Models.Utils;
 using SocialMarketplace.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

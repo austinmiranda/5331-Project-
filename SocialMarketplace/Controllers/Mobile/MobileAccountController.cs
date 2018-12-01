@@ -12,7 +12,7 @@ using System.Web.Http;
 
 namespace SocialMarketplace.Controllers.Mobile
 {
-    public class MobileAccountController : ApiController
+    public class MobileAccountController : BaseApiController
     {
         private AuthRepository _repo = null;
 
@@ -22,8 +22,7 @@ namespace SocialMarketplace.Controllers.Mobile
         }
 
         // POST api/Account/Register
-        [AllowAnonymous]
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public async Task<IHttpActionResult> Register(RegisterViewModel userModel)
         {
             if (!ModelState.IsValid)
@@ -41,6 +40,12 @@ namespace SocialMarketplace.Controllers.Mobile
             }
 
             return Ok();
+        }
+
+        [HttpGet, Authorize, ApiAuthorize]
+        public User GetInfo()
+        {
+            return _repo.FindUser(UserId);
         }
 
         protected override void Dispose(bool disposing)

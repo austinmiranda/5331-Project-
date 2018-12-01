@@ -45,11 +45,16 @@ namespace SocialMarketplace.Models.Utils
             return user;
         }
 
+        public User FindUser(int userId)
+        {
+            
+            return _userManager.FindById(userId);
+        }
+
         public void Dispose()
         {
             _ctx.Dispose();
             _userManager.Dispose();
-
         }
     }
 }

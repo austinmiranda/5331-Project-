@@ -10,7 +10,6 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using SocialMarketplace.Models;
 
-//[assembly: OwinStartup(typeof(SocialMarketplace.Startup))]
 namespace SocialMarketplace
 {
     public partial class Startup
@@ -94,11 +93,6 @@ namespace SocialMarketplace
                 ClientId = "300801301561-is7d2pt2p7v986u364drekafvt1u83k8.apps.googleusercontent.com",
                 ClientSecret = "FjdLveE-1BQ2cT0Prb8lZd2R"
             });
-
-
-            //System.Web.Http.HttpConfiguration config = new System.Web.Http.HttpConfiguration();
-            //WebApiConfig.Register(config);
-            //app.UseWebApi(config);
 
             ConfigureOAuth(app);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);

@@ -60,7 +60,7 @@ namespace SocialMarketplace.Models.BLL
             return new SelectList(types, "Value", "Text");
         }
 
-        public void SaveResponse(ResponseViewModel responseViewModel)
+        public void SaveResponse(int userId, ResponseViewModel responseViewModel)
         {
             ValidateResponse(responseViewModel);
 
@@ -75,11 +75,8 @@ namespace SocialMarketplace.Models.BLL
                     Request = request,
                     DateCreated = DateTime.Now,
                     Items = new List<ResponseItem>(),
-                    //UserId = SessionFacade.User.Identity.GetUserId<int>()
-                    UserId = 1
+                    UserId = userId
                 };
-
-                //context.SaveChanges();
 
                 foreach (var item in responseViewModel.Items)
                 {
@@ -88,7 +85,6 @@ namespace SocialMarketplace.Models.BLL
                     response.Items.Add(new ResponseItem
                     {
                         Quantity = item.Quantity,
-                        //Response = response,
                         RequestItem = requestItem
                     });
                 }
@@ -120,7 +116,7 @@ namespace SocialMarketplace.Models.BLL
 
         }
 
-        public void SaveRequest(RequestMandatoryViewModel requestMandatory, RequestOptionalViewModel requestOptional = null)
+        public void SaveRequest(int userId, RequestMandatoryViewModel requestMandatory, RequestOptionalViewModel requestOptional = null)
         {
             ValidateStep1Request(requestMandatory);
 
@@ -154,7 +150,7 @@ namespace SocialMarketplace.Models.BLL
                     entity.Progress = 0;
                     entity.Subtitle = requestMandatory.Subtitle;
                     entity.Title = requestMandatory.Title;
-                    entity.UserId = SessionFacade.User.Identity.GetUserId<int>();
+                    entity.UserId = userId;
                     entity.VisualizationCount = 0;
                 }
                 else
@@ -170,7 +166,7 @@ namespace SocialMarketplace.Models.BLL
                         Progress = 0,
                         Subtitle = requestMandatory.Subtitle,
                         Title = requestMandatory.Title,
-                        UserId = SessionFacade.User.Identity.GetUserId<int>(),
+                        UserId = userId,
                         VisualizationCount = 0
                     };
 
@@ -285,7 +281,7 @@ namespace SocialMarketplace.Models.BLL
             }
         }
 
-        internal void SaveQuestion(QuestionViewModel viewModel)
+        internal void SaveQuestion(int userId, QuestionViewModel viewModel)
         {
             using (var context = new ApplicationContext())
             {
@@ -296,7 +292,7 @@ namespace SocialMarketplace.Models.BLL
                     Description = viewModel.Description,
                     Type = QuestionType.NOT_ANSWERED,
                     Request = request,
-                    UserId = SessionFacade.User.Identity.GetUserId<int>()
+                    UserId = userId
                 });
 
                 context.SaveChanges();
