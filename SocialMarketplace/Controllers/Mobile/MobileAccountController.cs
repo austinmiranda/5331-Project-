@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using SocialMarketplace.Models;
 using SocialMarketplace.Models.Utils;
+using SocialMarketplace.Models.ViewModels.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,10 +43,21 @@ namespace SocialMarketplace.Controllers.Mobile
             return Ok();
         }
 
-        [HttpGet, Authorize, ApiAuthorize]
-        public User GetInfo()
+        [HttpGet, ApiAuthorize]
+        public UserDetailsViewModel GetInfo()
         {
-            return _repo.FindUser(UserId);
+            var user = _repo.FindUser(UserId);
+
+            return new UserDetailsViewModel
+            {
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Address = user.Address,
+                PhoneNumber = user.PhoneNumber,
+                Company = user.Company
+            };
         }
 
         protected override void Dispose(bool disposing)

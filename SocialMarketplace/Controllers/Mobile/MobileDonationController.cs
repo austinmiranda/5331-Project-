@@ -37,7 +37,7 @@ namespace SocialMarketplace.Controllers.Mobile
             }
         }
 
-        [HttpPost, Authorize, ApiAuthorize]
+        [HttpPost, ApiAuthorize]
         public ResponseViewModel Donate(ResponseViewModel responseViewModel)
         {
             try
