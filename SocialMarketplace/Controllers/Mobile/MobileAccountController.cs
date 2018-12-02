@@ -44,7 +44,7 @@ namespace SocialMarketplace.Controllers.Mobile
         }
 
         [HttpGet, ApiAuthorize]
-        public UserDetailsViewModel GetInfo()
+        public UserDetailsViewModel GetUserDetails()
         {
             var user = _repo.FindUser(UserId);
 
