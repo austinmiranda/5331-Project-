@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using SocialMarketplace.Models.ViewModels.Response;
+using SocialMarketplace.Models.ViewModels.Home;
 
 namespace SocialMarketplace.Models.BLL
 {
@@ -39,6 +40,42 @@ namespace SocialMarketplace.Models.BLL
                     RequestOptional = new RequestOptionalViewModel()
                 }
             };
+        }
+
+        internal SearchResultViewModel Search(SearchViewModel searchViewModel, int skip, int take)
+        {
+            var result = new SearchResultViewModel
+            {
+                Attributes = searchViewModel
+            };
+
+            using (var context = new ApplicationContext())
+            {
+                IQueryable<Request> query = context.Requests;
+
+                if (searchViewModel.CategoryId != 0)
+                    query = query.Where(x => x.Category.Id == searchViewModel.CategoryId);
+
+                if (!string.IsNullOrEmpty(searchViewModel.Keywords))
+                    query = query.Where(x => x.Keywords.Contains(searchViewModel.Keywords));
+
+                if (!string.IsNullOrEmpty(searchViewModel.Query))
+                    query = query.Where(x => x.Title.Contains(searchViewModel.Query) ||
+                    x.Subtitle.Contains(searchViewModel.Query));
+
+                result.Quantity = query.Count();
+
+                result.Requests = query.Select(request => new RequestViewModel {
+                    Id = request.Id,
+                    CategoryId = request.Category.Id,
+                    Title = request.Title,
+                    Subtitle = request.Subtitle,
+                    Progress = request.Progress,
+                    Photo = Utils.SessionFacade.RootUrl + "/Donation/Photo/" + request.Id
+                }).Skip(skip).Take(take).ToList();
+            }
+
+            return result;
         }
 
         public SelectList GetCategories()

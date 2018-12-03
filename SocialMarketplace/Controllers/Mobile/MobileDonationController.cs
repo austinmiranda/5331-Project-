@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SocialMarketplace.Models.Utils;
+using SocialMarketplace.Models.ViewModels.Home;
 
 namespace SocialMarketplace.Controllers.Mobile
 {
@@ -30,6 +31,32 @@ namespace SocialMarketplace.Controllers.Mobile
                     throw new HttpResponseException(HttpStatusCode.NotFound);
 
                 return detailViewModel;
+            }
+            catch (Exception)
+            {
+                throw new HttpResponseException(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        [HttpPost]
+        public SearchResultViewModel Search(SearchViewModel searchViewModel, int skip, int take)
+        {
+            try
+            {
+                return donationBLO.Search(searchViewModel, skip, take);
+            }
+            catch(Exception)
+            {
+                throw new HttpResponseException(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        [HttpPost, ApiAuthorize]
+        public void Question(QuestionViewModel questionViewModel)
+        {
+            try
+            {
+                donationBLO.SaveQuestion(UserId, questionViewModel);
             }
             catch (Exception)
             {
