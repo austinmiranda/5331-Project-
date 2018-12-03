@@ -164,7 +164,7 @@ namespace SocialMarketplace.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    donationBLO.SaveRequest(User.Identity.GetUserId<int>(), viewModel.Step1.RequestInForm, viewModel.Step3.RequestOptional);
+                    donationBLO.SaveRequest(User.Identity.GetUserId<int>(), viewModel.Step1.RequestInForm, requestOptional: viewModel.Step3.RequestOptional);
                     SessionFacade.RequestSteps = null;
 
                     return RedirectToAction("FinishAskForDonation");

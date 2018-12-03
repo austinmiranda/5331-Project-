@@ -50,5 +50,38 @@ namespace SocialMarketplace.Controllers.Mobile
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
         }
+
+        [HttpPost, ApiAuthorize]
+        public RequestStepsViewModel SaveRequest(RequestStepsViewModel request)
+        {
+            try
+            {
+                donationBLO.SaveRequest(UserId, request.Step1.RequestInForm, request.Step2.Items, request.Step3.RequestOptional);
+                return request;
+            }
+            catch(Exception)
+            {
+                throw new HttpResponseException(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        [HttpPut, ApiAuthorize]
+        public void SaveRequestPhoto([FromUri] int requestId)
+        {
+            try
+            {
+                HttpPostedFile file = HttpContext.Current.Request.Files.Count > 0 ?
+                    HttpContext.Current.Request.Files[0] : null;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    donationBLO.SaveRequestPhoto(UserId, requestId, file);
+                }
+            }
+            catch (Exception)
+            {
+                throw new HttpResponseException(HttpStatusCode.InternalServerError);
+            }
+        }
     }
 }

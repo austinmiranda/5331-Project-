@@ -116,7 +116,7 @@ namespace SocialMarketplace.Models.BLL
 
         }
 
-        public void SaveRequest(int userId, RequestMandatoryViewModel requestMandatory, RequestOptionalViewModel requestOptional = null)
+        public void SaveRequest(int userId, RequestMandatoryViewModel requestMandatory, IList<RequestItemViewModel> itemsToMerge = null, RequestOptionalViewModel requestOptional = null)
         {
             ValidateStep1Request(requestMandatory);
 
@@ -141,17 +141,24 @@ namespace SocialMarketplace.Models.BLL
                 {
                     entity = context.Requests.Where(x => x.Id == requestMandatory.Id).SingleOrDefault();
 
+                    // Caution! Accessing the request of another user!
+                    if (userId != entity.UserId)
+                        throw new UnauthorizedAccessException();
+
+                    if (entity.Status == RequestStatus.COMPLETED)
+                        throw new Exception("Request already completed");
+
+                    // If already started or was suspendend, keep that way
+                    if (entity.Status == RequestStatus.IN_PROGRESS || entity.Status == RequestStatus.IN_PROGRESS)
+                        status = entity.Status;
+
                     entity.Area = area;
                     entity.Status = status;
-                    entity.DateCreated = DateTime.Now;
                     entity.DateDue = requestMandatory.DateDue;
                     entity.Category = category;
                     entity.Description = requestMandatory.Description;
-                    entity.Progress = 0;
                     entity.Subtitle = requestMandatory.Subtitle;
                     entity.Title = requestMandatory.Title;
-                    entity.UserId = userId;
-                    entity.VisualizationCount = 0;
                 }
                 else
                 {
@@ -166,6 +173,7 @@ namespace SocialMarketplace.Models.BLL
                         Progress = 0,
                         Subtitle = requestMandatory.Subtitle,
                         Title = requestMandatory.Title,
+                        Items = new List<RequestItem>(),
                         UserId = userId,
                         VisualizationCount = 0
                     };
@@ -173,7 +181,53 @@ namespace SocialMarketplace.Models.BLL
                     context.Requests.Add(entity);
                 }
 
-                if(requestOptional != null)
+                if(itemsToMerge != null)
+                {
+                    var currentList = entity.Items;
+                    var newList = itemsToMerge;
+
+                    var removeList = currentList
+                        .Where(currentItem => newList.All(newItem => currentItem.Id != newItem.Id))
+                        .ToList();
+
+                    var addList = newList
+                        .Where(newItem => currentList.All(currentItem => currentItem.Id != newItem.Id))
+                        .ToList();
+
+                    var updateList = currentList
+                        .Join(newList,
+                            currentItem => currentItem.Id,
+                            newItem => newItem.Id,
+                            (currentItem, newItem) => new { CurrentItem = currentItem, NewItem = newItem })
+                        .ToList();
+
+                    foreach (var itemToAdd in addList)
+                    {
+                        var item = new RequestItem
+                        {
+                            Quantity = itemToAdd.Quantity,
+                            Request = entity,
+                            Title = itemToAdd.Title,
+                            Detail = itemToAdd.Detail,
+                            Type = itemToAdd.Type
+                        };
+
+                        context.RequestItems.Add(item);
+                    }
+
+                    foreach (var itemToRemove in removeList)
+                        context.RequestItems.Remove(itemToRemove);
+
+                    foreach(var item in updateList)
+                    {
+                        item.CurrentItem.Title = item.NewItem.Title;
+                        item.CurrentItem.Detail = item.NewItem.Detail;
+                        item.CurrentItem.Quantity = item.NewItem.Quantity;
+                        item.CurrentItem.Type = item.NewItem.Type;
+                    }
+                }
+
+                if (requestOptional != null)
                 {
                     entity.Keywords = requestOptional.Keywords;
                     entity.VideoURL = requestOptional.VideoURL;
@@ -194,6 +248,35 @@ namespace SocialMarketplace.Models.BLL
                 context.SaveChanges();
 
                 requestMandatory.Id = entity.Id;
+            }
+        }
+
+        internal void SaveRequestPhoto(int userId, int requestId, HttpPostedFile file)
+        {
+            using (var context = new ApplicationContext())
+            {
+                Request entity = context.Requests.Where(x => x.Id == requestId).SingleOrDefault();
+
+                // Caution! Accessing the request of another user!
+                if (userId != entity.UserId)
+                    throw new UnauthorizedAccessException();
+
+                if (entity.Status == RequestStatus.COMPLETED)
+                    throw new Exception("Request already completed");
+
+                if (file != null)
+                {
+                    byte[] fileData = null;
+
+                    using (var binaryReader = new BinaryReader(file.InputStream))
+                    {
+                        fileData = binaryReader.ReadBytes(file.ContentLength);
+                    }
+
+                    entity.Photo = fileData;
+
+                    context.SaveChanges();
+                }
             }
         }
 
