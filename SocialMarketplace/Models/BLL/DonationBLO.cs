@@ -42,6 +42,34 @@ namespace SocialMarketplace.Models.BLL
             };
         }
 
+        public RequestListViewModel MyRequests(int userId, int skip, int take)
+        {
+            var result = new RequestListViewModel();
+
+            using (var context = new ApplicationContext())
+            {
+                var query = context.Requests
+                    .Where(x => x.UserId == userId);
+
+                result.Quantity = query.Count();
+
+                result.Requests = query
+                    .Select(request => new RequestViewModel
+                    {
+                        Id = request.Id,
+                        CategoryId = request.Category.Id,
+                        Title = request.Title,
+                        Subtitle = request.Subtitle,
+                        Progress = request.Progress,
+                        Photo = Utils.SessionFacade.RootUrl + "/Donation/Photo/" + request.Id
+                    })
+                    .OrderByDescending(x => x.Id)
+                    .Skip(skip).Take(take).ToList();
+            }
+
+            return result;
+        }
+
         internal SearchResultViewModel Search(SearchViewModel searchViewModel, int skip, int take)
         {
             var result = new SearchResultViewModel
@@ -72,7 +100,9 @@ namespace SocialMarketplace.Models.BLL
                     Subtitle = request.Subtitle,
                     Progress = request.Progress,
                     Photo = Utils.SessionFacade.RootUrl + "/Donation/Photo/" + request.Id
-                }).Skip(skip).Take(take).ToList();
+                })
+                .OrderByDescending(x => x.Id)
+                .Skip(skip).Take(take).ToList();
             }
 
             return result;

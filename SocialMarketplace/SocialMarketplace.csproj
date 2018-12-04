@@ -288,6 +288,7 @@
     <Compile Include="Models\ViewModels\Request\DetailViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\QuestionViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\Request\RequestListViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestOptionalViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestStep1ViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestStep2ViewModel.cs" />

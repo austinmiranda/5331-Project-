@@ -38,6 +38,19 @@ namespace SocialMarketplace.Controllers.Mobile
             }
         }
 
+        [HttpGet, ApiAuthorize]
+        public RequestListViewModel MyRequests(int skip, int take)
+        {
+            try
+            {
+                return donationBLO.MyRequests(UserId, skip, take);
+            }
+            catch(Exception)
+            {
+                throw new HttpResponseException(HttpStatusCode.InternalServerError);
+            }
+        }
+
         [HttpPost]
         public SearchResultViewModel Search(SearchViewModel searchViewModel, int skip, int take)
         {
