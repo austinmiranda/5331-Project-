@@ -12,11 +12,14 @@ using System.Web.Routing;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net;
+using SocialMarketplace.Models.ViewModels.Response;
 
 namespace SocialMarketplace.Controllers
 {
     public class DonationController : BaseController
     {
+        private readonly int POSITION_KEY = 11;
+        
         private readonly DonationBLO donationBLO = new DonationBLO();
 
         [Authorize]
@@ -206,9 +209,71 @@ namespace SocialMarketplace.Controllers
             }
         }
 
-        public ActionResult Response(int id)
+        [Authorize]
+        public ActionResult ResponseFor(int id)
         {
-            return View();
+            try
+            {
+                ResponseFormViewModel response = donationBLO.CreateEmptyResponseViewModel(id);
+
+                return View(response);
+            }
+            catch(Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View();
+            }
+        }
+
+        [ValidateAntiForgeryToken]
+        [Authorize, HttpPost]
+        public ActionResult ResponseFor(ResponseFormViewModel response)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var responseViewModel = new ResponseViewModel
+                    {
+                        Description = response.Description,
+                        RequestId = response.RequestId,
+                        Items = GetResponseItems(Request)
+                    };
+
+                    donationBLO.SaveResponse(User.Identity.GetUserId<int>(), responseViewModel);
+                    return RedirectToAction("Completed");
+                }
+                else
+                    return View(response);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View(response);
+            }
+        }
+
+        private IList<ResponseItemViewModel> GetResponseItems(HttpRequestBase request)
+        {
+            var items = new List<ResponseItemViewModel>();
+
+            foreach(var item in request.Form.AllKeys)
+            {
+                if(item.StartsWith("IsDonating_"))
+                {
+                    string key = item.Substring(POSITION_KEY);
+                    int requestItemId = int.Parse(key);
+                    int quantity = int.Parse(request.Form["RequestItem_" + key]);
+
+                    items.Add(new ResponseItemViewModel
+                    {
+                        RequestItemId = requestItemId,
+                        Quantity = quantity
+                    });
+                }
+            };
+
+            return items;
         }
 
         public ActionResult Completed()
@@ -260,7 +325,7 @@ namespace SocialMarketplace.Controllers
                     return RedirectToAction("Question", new { id });
 
                 if(command.Equals("Donate"))
-                    return RedirectToAction("Response", new { id });
+                    return RedirectToAction("ResponseFor", new { id });
 
                 return View();
             }

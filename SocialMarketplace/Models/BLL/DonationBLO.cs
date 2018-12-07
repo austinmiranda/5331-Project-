@@ -318,6 +318,43 @@ namespace SocialMarketplace.Models.BLL
             }
         }
 
+        internal ResponseFormViewModel CreateEmptyResponseViewModel(int id)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var response = new ResponseFormViewModel
+                {
+                    RequestId = id,
+                    Items = new List<ResponseItemFormViewModel>()
+                };
+
+                var request = context.Requests.Find(id);
+
+                foreach(var item in request.Items)
+                {
+                    response.Items.Add(new ResponseItemFormViewModel
+                    {
+                        RequestItem = new RequestItemViewModel
+                        {
+                            Id = item.Id,
+                            Title = item.Title,
+                            Detail = item.Detail,
+                            Type = item.Type,
+                            Quantity = item.Quantity
+                        },
+
+                        ResponseItemInForm = new ResponseItemViewModel
+                        {
+                            RequestItemId = item.Id,
+                            Quantity = 0
+                        }
+                    });
+                }
+
+                return response;
+            };
+        }
+
         internal void SaveRequestPhoto(int userId, int requestId, HttpPostedFile file)
         {
             using (var context = new ApplicationContext())

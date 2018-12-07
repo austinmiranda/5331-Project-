@@ -297,6 +297,8 @@
     <Compile Include="Models\ViewModels\Request\RequestMandatoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\SearchResultViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\SearchViewModel.cs" />
+    <Compile Include="Models\ViewModels\Response\ResponseFormViewModel.cs" />
+    <Compile Include="Models\ViewModels\Response\ResponseItemFormViewModel.cs" />
     <Compile Include="Models\ViewModels\Response\ResponseItemViewModel.cs" />
     <Compile Include="Models\ViewModels\Response\ResponseViewModel.cs" />
     <Compile Include="Models\ViewModels\User\UserDetailsViewModel.cs" />
@@ -376,7 +378,7 @@
     <Content Include="Views\Donation\RequestStep1.cshtml" />
     <Content Include="Views\Donation\RequestStep2.cshtml" />
     <Content Include="Views\Donation\RequestStep3.cshtml" />
-    <Content Include="Views\Donation\Response.cshtml" />
+    <Content Include="Views\Donation\ResponseFor.cshtml" />
     <Content Include="Views\Donation\Result.cshtml" />
     <Content Include="Views\Donation\Search.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
