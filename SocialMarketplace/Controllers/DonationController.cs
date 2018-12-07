@@ -281,17 +281,7 @@ namespace SocialMarketplace.Controllers
             return View();
         }
 
-        public ActionResult Search()
-        {
-            return View();
-        }
-
         public ActionResult List()
-        {
-            return View();
-        }
-
-        public ActionResult Result()
         {
             return View();
         }

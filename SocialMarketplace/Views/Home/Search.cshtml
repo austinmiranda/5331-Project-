@@ -1,0 +1,49 @@
+﻿@model SocialMarketplace.Models.ViewModels.Request.SearchFormViewModel
+@{
+    ViewBag.Title = "Search";
+}
+<h2>@ViewBag.Title</h2>
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.PageSize)
+
+            if (!ViewData.ModelState.IsValid)
+            {
+                @Html.ValidationSummary(true, "Please correct the following information:", new { @class = "text-danger" })
+            }
+
+            <div class="row">
+                <div class="form-group">
+                    <label for="email">Full-text search:</label>
+                    @Html.LabelFor(model => model.Query)
+                    @Html.EditorFor(model => model.Query, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Query, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CategoryId)
+                        @Html.DropDownListFor(model => model.CategoryId,
+                            Model.Categories,
+                            new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="email">Keywords:</label>
+                    @Html.LabelFor(model => model.Keywords)
+                    @Html.EditorFor(model => model.Keywords, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Keywords, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Search</button>
+        }
+    </div>
+</div>

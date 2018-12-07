@@ -1,0 +1,64 @@
+﻿@model SocialMarketplace.Models.ViewModels.Request.SearchFormViewModel
+@{
+    ViewBag.Title = "Search Results";
+}
+<h2>@ViewBag.Title</h2>
+<h3>@Model.Quantity request(s) found.</h3>
+<div class="row">
+    <div class="col-md-12">
+        <div class="list-group">
+
+
+            @foreach (var item in Model.Requests)
+            {
+                <a href="/Donation/Detail/@item.Id" class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <img src="@item.Photo" class="img-responsive img-rounded">
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <h4 class="list-group-item-heading">@item.Title</h4>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@item.Progress"
+                                             aria-valuemin="0" aria-valuemax="100" style="width:@item.Progress%">
+                                            @item.Progress%
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="list-group-item-text">@item.Subtitle</p>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.CategoryId)
+    @Html.HiddenFor(model => model.Query)
+    @Html.HiddenFor(model => model.Keywords)
+    @Html.HiddenFor(model => model.PageSize)
+
+    for(int i = 0; i < Model.NumberPages; i++)
+    {
+        String c;
+        if (i == Model.Page)
+        {
+            c = "btn-primary";
+        }
+        else
+        {
+            c = "btn-secondary";
+        }
+    <button type="submit" name="Page" value="@i" class="btn @c">@(i + 1)</button>
+    }
+}
