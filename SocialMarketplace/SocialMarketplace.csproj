@@ -253,12 +253,9 @@
     <Compile Include="Migrations\201811080350080_Question-Adjustment.Designer.cs">
       <DependentUpon>201811080350080_Question-Adjustment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811090328427_newdb.cs" />
-    <Compile Include="Migrations\201811090328427_newdb.Designer.cs">
-      <DependentUpon>201811090328427_newdb.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BLL\AdminBLO.cs" />
     <Compile Include="Models\BLL\DonationBLO.cs" />
     <Compile Include="Models\BLL\HomeBLO.cs" />
     <Compile Include="Models\DAL\ApplicationContext.cs" />
@@ -279,6 +276,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Utils\ApiAuthorize.cs" />
     <Compile Include="Models\Utils\AuthRepository.cs" />
+    <Compile Include="Models\ViewModels\Admin\DashboardSeriesViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\HomeViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\RequestViewModel.cs" />
@@ -389,10 +387,14 @@
     <Content Include="Views\Home\PrivacyCookiesPolicy.cshtml" />
     <Content Include="Views\Manage\Edit.cshtml" />
     <Content Include="Views\Donation\Question.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\DashboardNewUsers.cshtml" />
+    <Content Include="Views\View.cshtml" />
+    <Content Include="Views\Admin\DashboardDonations.cshtml" />
+    <Content Include="Views\Admin\DashboardResponses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\MobileDonation\" />
   </ItemGroup>
   <ItemGroup>
@@ -429,9 +431,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811080350080_Question-Adjustment.resx">
       <DependentUpon>201811080350080_Question-Adjustment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811090328427_newdb.resx">
-      <DependentUpon>201811090328427_newdb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

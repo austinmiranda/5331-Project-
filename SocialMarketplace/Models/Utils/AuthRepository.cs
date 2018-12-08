@@ -30,6 +30,7 @@ namespace SocialMarketplace.Models.Utils
                 Email = userModel.Email,
                 Company = userModel.Company,
                 Address = userModel.Address,
+                CreatedAt = DateTime.Today,
                 PhoneNumber = userModel.PhoneNumber
             };
 

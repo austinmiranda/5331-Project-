@@ -53,6 +53,8 @@ namespace SocialMarketplace.Models
         
         public string Address { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
         public string Company { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
