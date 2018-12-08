@@ -42,6 +42,40 @@ namespace SocialMarketplace.Models.BLL
             };
         }
 
+        public RequestStepsViewModel GetDonationViewModel(int? requestId)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var request = context.Requests.Find(requestId);
+
+                return new RequestStepsViewModel
+                {
+                    Step1 = new RequestStep1ViewModel
+                    {
+                        Categories = GetCategories(),
+                        RequestInForm = new RequestMandatoryViewModel
+                        {
+                            Title = request.Title,
+                            Description = request.Description,
+                            CategoryId = request.Category.Id,
+                            Subtitle = request.Subtitle,
+                            DateDue = request.DateDue
+                        }
+                    },
+                    Step2 = new RequestStep2ViewModel
+                    {
+                        RequestItemTypes = GetRequestItemTypes(),
+                        ItemInForm = new RequestItemViewModel(),
+                        Items = new List<RequestItemViewModel>()
+                    },
+                    Step3 = new RequestStep3ViewModel
+                    {
+                        RequestOptional = new RequestOptionalViewModel()
+                    }
+                };
+            }
+        }
+
         public RequestListViewModel MyRequests(int userId, int skip, int take)
         {
             var result = new RequestListViewModel();
@@ -636,5 +670,69 @@ namespace SocialMarketplace.Models.BLL
                     return null;
             }
         }
+
+
+        public IList<DonationRequestedViewModel> GetRequests(int id, String sortOrder)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var query = context.Requests.Where(r => r.UserId == id);
+
+                //if (sortByTitle)
+                //    query = query.OrderBy(x => x.Title);
+
+                //if (sortByDescription)
+                //    query = query.OrderBy(x => x.Description);
+
+                switch (sortOrder)
+                {
+                    case "Title":
+                        query = query.OrderBy(x => x.Title);
+                        break;
+                    case "Title_desc":
+                        query = query.OrderByDescending(x => x.Title);
+                        break;
+                    case "Datedue":
+                        query = query.OrderBy(x => x.DateDue);
+                        break;
+                    case "Datedue_desc":
+                        query = query.OrderByDescending(x => x.DateDue);
+                        break;
+                    case "Category":
+                        query = query.OrderBy(x => x.Category.Name);
+                        break;
+                    case "Category_desc":
+                        query = query.OrderByDescending(x => x.Category.Name);
+                        break;
+                    case "Progress":
+                        query = query.OrderBy(x => x.Progress);
+                        break;
+                    case "Progress_desc":
+                        query = query.OrderByDescending(x => x.Progress);
+                        break;
+                    default:
+                        query = query.OrderBy(x => x.Title);
+                        break;
+                }
+                var requests =
+                    query.Select(x => new DonationRequestedViewModel
+                    {
+                        Id = x.Id,
+                        Title = x.Title,
+                        Subtitle = x.Subtitle,
+                        Description = x.Description,
+                        DateCreated = x.DateCreated,
+                        DateDue = x.DateDue,
+                        Status = x.Status,
+                        Progress = x.Progress,
+                        Category = x.Category.Name
+
+
+                    }).ToList();
+
+                return requests;
+            }
+        }
+
     }
 }

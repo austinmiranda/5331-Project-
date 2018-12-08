@@ -23,7 +23,7 @@ namespace SocialMarketplace.Controllers
         private readonly DonationBLO donationBLO = new DonationBLO();
 
         [Authorize]
-        public ActionResult RequestStep1()
+        public ActionResult RequestStep1(int? id)
         {
             try
             {
@@ -32,6 +32,11 @@ namespace SocialMarketplace.Controllers
                 if(viewModel == null)
                 {
                     viewModel = donationBLO.CreateEmptyDonationViewModel();
+                    SessionFacade.RequestSteps = viewModel;
+                }
+                if(id != null)
+                {
+                    viewModel = donationBLO.GetDonationViewModel(id);
                     SessionFacade.RequestSteps = viewModel;
                 }
 
