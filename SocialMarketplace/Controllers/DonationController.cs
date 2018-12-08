@@ -183,6 +183,27 @@ namespace SocialMarketplace.Controllers
         }
 
         [Authorize]
+        public ActionResult Duplicate(int id)
+        {
+            try
+            {
+                donationBLO.Duplicate(User.Identity.GetUserId<int>(), id);
+
+                return RedirectToAction("DuplicateSuccess");
+            }
+            catch(Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View();
+            }
+        }
+
+        public ActionResult DuplicateSuccess()
+        {
+            return View();
+        }
+
+        [Authorize]
         public ActionResult FinishAskForDonation()
         {
             return View();
@@ -249,7 +270,7 @@ namespace SocialMarketplace.Controllers
             catch (Exception ex)
             {
                 ErrorHandling.AddModelError(ModelState, ex);
-                return View(response);
+                return View(donationBLO.CreateEmptyResponseViewModel(response.RequestId));
             }
         }
 
@@ -317,6 +338,12 @@ namespace SocialMarketplace.Controllers
                 if(command.Equals("Donate"))
                     return RedirectToAction("ResponseFor", new { id });
 
+                if (command.Equals("Duplicate"))
+                    return RedirectToAction("Duplicate", new { id });
+
+                if (command.Equals("Notification"))
+                    return RedirectToAction("AddNotification", new { id });
+
                 return View();
             }
             catch (Exception ex)
@@ -324,6 +351,27 @@ namespace SocialMarketplace.Controllers
                 ErrorHandling.AddModelError(ModelState, ex);
                 return View();
             }
+        }
+
+        [Authorize]
+        public ActionResult AddNotification(int id)
+        {
+            try
+            {
+                donationBLO.AddNotification(User.Identity.GetUserId<int>(), id);
+
+                return RedirectToAction("AddNotificationSuccess");
+            }
+            catch(Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View();
+            }
+        }
+
+        public ActionResult AddNotificationSuccess()
+        {
+            return View();
         }
 
         public ActionResult Question(int id, String result)

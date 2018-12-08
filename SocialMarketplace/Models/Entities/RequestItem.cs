@@ -19,6 +19,7 @@ namespace SocialMarketplace.Models.Entities
         public RequestItemType Type { get; set; }
         [Required]
         public int Quantity { get; set; }
+        public int InitialQuantity { get; set; }
         [Required]
         public Request Request { get; set; }
     }

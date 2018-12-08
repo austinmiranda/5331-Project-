@@ -28,7 +28,8 @@ namespace SocialMarketplace.Models.Utils
                 }
             }
             else
-                model.AddModelError(string.Empty, ex.Message + " " + ex.StackTrace.ToString());
+                model.AddModelError(string.Empty, ex.Message);
+                //model.AddModelError(string.Empty, ex.Message + " " + ex.StackTrace.ToString());
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace SocialMarketplace.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private AdminBLO adminBLO = new AdminBLO();

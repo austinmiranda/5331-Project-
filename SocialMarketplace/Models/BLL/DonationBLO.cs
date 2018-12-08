@@ -133,34 +133,66 @@ namespace SocialMarketplace.Models.BLL
 
             using (var context = new ApplicationContext())
             {
-                var request = context.Requests.Where(x => x.Id == responseViewModel.RequestId).SingleOrDefault();
-
-                var response = new Response
+                using (var transaction = context.Database.BeginTransaction())
                 {
-                    Description = responseViewModel.Description,
-                    Status = ResponseStatus.NEW,
-                    Request = request,
-                    DateCreated = DateTime.Now,
-                    Items = new List<ResponseItem>(),
-                    UserId = userId
-                };
-
-                foreach (var item in responseViewModel.Items)
-                {
-                    var requestItem = request.Items.Where(x => x.Id == item.RequestItemId).SingleOrDefault();
-
-                    response.Items.Add(new ResponseItem
+                    try
                     {
-                        Quantity = item.Quantity,
-                        RequestItem = requestItem
-                    });
+                        var request = context.Requests.Where(x => x.Id == responseViewModel.RequestId).SingleOrDefault();
+
+                        var response = new Response
+                        {
+                            Description = responseViewModel.Description,
+                            Status = ResponseStatus.NEW,
+                            Request = request,
+                            DateCreated = DateTime.Now,
+                            Items = new List<ResponseItem>(),
+                            UserId = userId
+                        };
+
+                        foreach (var item in responseViewModel.Items)
+                        {
+                            var requestItem = request.Items.Where(x => x.Id == item.RequestItemId).SingleOrDefault();
+
+                            if (item.Quantity > requestItem.Quantity)
+                                throw new Exception("Quantity exceeds limit!");
+
+                            response.Items.Add(new ResponseItem
+                            {
+                                Quantity = item.Quantity,
+                                RequestItem = requestItem
+                            });
+
+                            requestItem.Quantity -= item.Quantity;
+                        }
+
+                        context.Responses.Add(response);
+
+                        int total = 0;
+                        int donated = 0;
+
+                        foreach (var item in request.Items)
+                        {
+                            total += item.InitialQuantity;
+                            donated += item.InitialQuantity - item.Quantity;
+                        }
+
+                        int progress = 100 * donated / total;
+
+                        request.Progress = progress;
+
+                        context.SaveChanges();
+
+                        transaction.Commit();
+
+                        responseViewModel.Id = response.Id;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+
+                        throw ex;
+                    }
                 }
-
-                context.Responses.Add(response);
-
-                context.SaveChanges();
-
-                responseViewModel.Id = response.Id;
             };
         }
 
@@ -181,6 +213,51 @@ namespace SocialMarketplace.Models.BLL
                     throw new Exception("Invalid item.");
             }
 
+        }
+
+        internal void Duplicate(int userId, int requestId)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var request = context.Requests.Find(requestId);
+
+                var newRequest = new Request
+                {
+                    Area = request.Area,
+                    Category = request.Category,
+                    DateCreated = DateTime.Now,
+                    DateDue = DateTime.Today.AddDays(7),
+                    Description = request.Description,
+                    Keywords = request.Keywords,
+                    Photo = request.Photo,
+                    Progress = 0,
+                    Status = RequestStatus.ACTIVE,
+                    Subtitle = request.Subtitle,
+                    Title = request.Title,
+                    UserId = userId,
+                    VideoURL = request.VideoURL,
+                    VisualizationCount = 0,
+                    Items = new List<RequestItem>()
+                };
+
+                foreach(var item in request.Items)
+                {
+                    var newItem = new RequestItem
+                    {
+                        Detail = item.Detail,
+                        Quantity = item.InitialQuantity,
+                        InitialQuantity = item.InitialQuantity,
+                        Title = item.Title,
+                        Type = item.Type
+                    };
+
+                    newRequest.Items.Add(newItem);
+                }
+
+                context.Requests.Add(newRequest);
+
+                context.SaveChanges();
+            }
         }
 
         public void SaveRequest(int userId, RequestMandatoryViewModel requestMandatory, IList<RequestItemViewModel> itemsToMerge = null, RequestOptionalViewModel requestOptional = null)
@@ -273,6 +350,7 @@ namespace SocialMarketplace.Models.BLL
                         var item = new RequestItem
                         {
                             Quantity = itemToAdd.Quantity,
+                            InitialQuantity = itemToAdd.Quantity,
                             Request = entity,
                             Title = itemToAdd.Title,
                             Detail = itemToAdd.Detail,
@@ -290,6 +368,7 @@ namespace SocialMarketplace.Models.BLL
                         item.CurrentItem.Title = item.NewItem.Title;
                         item.CurrentItem.Detail = item.NewItem.Detail;
                         item.CurrentItem.Quantity = item.NewItem.Quantity;
+                        item.CurrentItem.InitialQuantity = item.NewItem.Quantity;
                         item.CurrentItem.Type = item.NewItem.Type;
                     }
                 }
@@ -315,6 +394,26 @@ namespace SocialMarketplace.Models.BLL
                 context.SaveChanges();
 
                 requestMandatory.Id = entity.Id;
+            }
+        }
+
+        internal void AddNotification(int userId, int requestId)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var request = context.Requests.Find(requestId);
+
+                var category = request.Category;
+
+                var newNotification = new Notification
+                {
+                    InterestedInCategory = category,
+                    UserId = userId,
+                    DateRequested = DateTime.Now
+                };
+
+                context.Notifications.Add(newNotification);
+                context.SaveChanges();
             }
         }
 
