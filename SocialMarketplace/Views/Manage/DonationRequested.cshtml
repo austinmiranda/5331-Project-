@@ -1,0 +1,116 @@
+﻿@model IEnumerable<SocialMarketplace.Models.ViewModels.Request.DonationRequestedViewModel>
+
+@{
+    ViewBag.Title = "DonationRequested";
+}
+
+<h2>DonationRequested</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-striped table-bordered" id="requestsTable" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                @if (ViewBag.sortType == "Title")
+                {
+
+                    <text>@Html.ActionLink("Title", "DonationRequested", new { id = ViewBag.uid, sortOrder = "Title_desc" })</text>
+                }
+                else
+                {
+                    <text>@Html.ActionLink("Title", "DonationRequested", new { id = ViewBag.uid, sortOrder = "Title" })</text>
+
+                }
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subtitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @if (ViewBag.sortType == "Datedue")
+                {
+
+                    <text>@Html.ActionLink("Date Due", "DonationRequested", new { id = ViewBag.uid, sortOrder = "Datedue_desc" })</text>
+                }
+                else
+                {
+                    <text>@Html.ActionLink("Date Due", "DonationRequested", new { id = ViewBag.uid, sortOrder = "Datedue" })</text>
+
+                }
+            </th>
+            <th>
+                @if (ViewBag.sortType == "Progress")
+                {
+
+                    <text>@Html.ActionLink("Progress", "DonationRequested", new { id = ViewBag.uid, sortOrder = "Progress_desc" })</text>
+                }
+                else
+                {
+                    <text>@Html.ActionLink("Progress", "DonationRequested", new { id = ViewBag.uid, sortOrder = "Progress" })</text>
+
+                }
+            </th>
+            <th>
+                @if (ViewBag.sortType == "Category")
+                {
+
+                    <text>@Html.ActionLink("Category", "DonationRequested", new { id = ViewBag.uid, sortOrder = "Category_desc" })</text>
+                }
+                else
+                {
+                    <text>@Html.ActionLink("Category", "DonationRequested", new { id = ViewBag.uid, sortOrder = "Category" })</text>
+
+                }
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subtitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateDue)
+                </td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@item.Progress"
+                             aria-valuemin="0" aria-valuemax="100" style="width:@item.Progress%">
+                            @item.Progress%
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "RequestStep1", "Donation", new { id = item.Id },null)|
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        </tbody>
+    }
+
+</table>
+

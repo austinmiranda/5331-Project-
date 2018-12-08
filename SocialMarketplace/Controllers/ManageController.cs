@@ -8,6 +8,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SocialMarketplace.Models;
+using SocialMarketplace.Models.BLL;
+using SocialMarketplace.Models.DAL;
 
 namespace SocialMarketplace.Controllers
 {
@@ -16,6 +18,10 @@ namespace SocialMarketplace.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        //DonationBLO instance
+        private readonly DonationBLO donationBLO = new DonationBLO();
+
 
         public ManageController()
         {
@@ -385,6 +391,21 @@ namespace SocialMarketplace.Controllers
             }
             ModelState.AddModelError("", "Something failed.");
             return View();
+        }
+
+
+
+        //Get User Requests
+        public async Task<ActionResult> DonationRequested(int id, String sortOrder)
+        {
+
+            var user = await UserManager.FindByIdAsync(id);
+            var viewModel = donationBLO.GetRequests(id,sortOrder);
+
+            ViewBag.sortType = sortOrder;
+            ViewBag.uid = id;
+
+            return View(viewModel);
         }
 
 
