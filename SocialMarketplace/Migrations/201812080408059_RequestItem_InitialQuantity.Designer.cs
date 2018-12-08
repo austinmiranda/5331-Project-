@@ -7,13 +7,13 @@ namespace SocialMarketplace.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class newdb : IMigrationMetadata
+    public sealed partial class RequestItem_InitialQuantity : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(newdb));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RequestItem_InitialQuantity));
         
         string IMigrationMetadata.Id
         {
-            get { return "201811090328427_newdb"; }
+            get { return "201812080408059_RequestItem_InitialQuantity"; }
         }
         
         string IMigrationMetadata.Source

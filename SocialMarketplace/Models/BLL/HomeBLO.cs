@@ -1,6 +1,7 @@
 ﻿using SocialMarketplace.Models.DAL;
 using SocialMarketplace.Models.Entities.Enum;
 using SocialMarketplace.Models.ViewModels.Home;
+using SocialMarketplace.Models.ViewModels.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace SocialMarketplace.Models.BLL
                 CategoryId = categoryId,
                 Categories = GetCategories(categoryId),
                 MainRequest = GetMainRequest(categoryId),
-                CategoryRequests = GetCategoryCategoryList(categoryId),
+                CategoryRequests = GetCategoryRequestList(categoryId),
                 UrgentRequests = GetUrgentRequestList()
             };
 
@@ -49,6 +50,27 @@ namespace SocialMarketplace.Models.BLL
             }
         }
 
+        internal SearchFormViewModel CreateEmptySearchViewModel()
+        {
+            return new SearchFormViewModel
+            {
+                Categories = GetCategories(),
+                Page = 0,
+                PageSize = 5                
+            };
+        }
+
+        public SelectList GetCategories()
+        {
+            using (var context = new ApplicationContext())
+            {
+                var categories = context.Categories.ToList().Select(
+                    x => new { Value = x.Id, Text = x.Name });
+
+                return new SelectList(categories, "Value", "Text");
+            }
+        }
+
         public IList<CategoryViewModel> GetCategories(int? categoryId)
         {
             using (var context = new ApplicationContext())
@@ -63,6 +85,7 @@ namespace SocialMarketplace.Models.BLL
                 return categories;
             }
         }
+
         public RequestViewModel GetMainRequest(int? Id)
         {
             using (var context = new ApplicationContext())
@@ -90,7 +113,7 @@ namespace SocialMarketplace.Models.BLL
                 return mainRequest;
             }
         }
-        public IList<RequestViewModel> GetCategoryCategoryList(int? Id)
+        public IList<RequestViewModel> GetCategoryRequestList(int? Id)
         {
             using (var context = new ApplicationContext())
             {

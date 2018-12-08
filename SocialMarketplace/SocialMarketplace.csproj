@@ -253,12 +253,13 @@
     <Compile Include="Migrations\201811080350080_Question-Adjustment.Designer.cs">
       <DependentUpon>201811080350080_Question-Adjustment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811090328427_newdb.cs" />
-    <Compile Include="Migrations\201811090328427_newdb.Designer.cs">
-      <DependentUpon>201811090328427_newdb.cs</DependentUpon>
+    <Compile Include="Migrations\201812080408059_RequestItem_InitialQuantity.cs" />
+    <Compile Include="Migrations\201812080408059_RequestItem_InitialQuantity.Designer.cs">
+      <DependentUpon>201812080408059_RequestItem_InitialQuantity.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BLL\AdminBLO.cs" />
     <Compile Include="Models\BLL\DonationBLO.cs" />
     <Compile Include="Models\BLL\HomeBLO.cs" />
     <Compile Include="Models\DAL\ApplicationContext.cs" />
@@ -279,6 +280,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Utils\ApiAuthorize.cs" />
     <Compile Include="Models\Utils\AuthRepository.cs" />
+    <Compile Include="Models\ViewModels\Admin\DashboardSeriesViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\HomeViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\RequestViewModel.cs" />
@@ -296,9 +298,15 @@
     <Compile Include="Models\ViewModels\Request\RequestStep3ViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestStepsViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestMandatoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\Request\SearchFormViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\SearchResultViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\SearchViewModel.cs" />
+
     <Compile Include="Models\ViewModels\Request\SortViewModel.cs" />
+
+    <Compile Include="Models\ViewModels\Response\ResponseFormViewModel.cs" />
+    <Compile Include="Models\ViewModels\Response\ResponseItemFormViewModel.cs" />
+
     <Compile Include="Models\ViewModels\Response\ResponseItemViewModel.cs" />
     <Compile Include="Models\ViewModels\Response\ResponseViewModel.cs" />
     <Compile Include="Models\ViewModels\User\UserDetailsViewModel.cs" />
@@ -378,9 +386,9 @@
     <Content Include="Views\Donation\RequestStep1.cshtml" />
     <Content Include="Views\Donation\RequestStep2.cshtml" />
     <Content Include="Views\Donation\RequestStep3.cshtml" />
-    <Content Include="Views\Donation\Response.cshtml" />
-    <Content Include="Views\Donation\Result.cshtml" />
-    <Content Include="Views\Donation\Search.cshtml" />
+    <Content Include="Views\Donation\ResponseFor.cshtml" />
+    <Content Include="Views\Home\Result.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\SignIn.cshtml" />
     <Content Include="Views\User\UserProfile.cshtml" />
@@ -388,11 +396,20 @@
     <Content Include="Views\Home\PrivacyCookiesPolicy.cshtml" />
     <Content Include="Views\Manage\Edit.cshtml" />
     <Content Include="Views\Donation\Question.cshtml" />
+
     <Content Include="Views\Manage\DonationRequested.cshtml" />
+
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\DashboardNewUsers.cshtml" />
+    <Content Include="Views\View.cshtml" />
+    <Content Include="Views\Admin\DashboardDonations.cshtml" />
+    <Content Include="Views\Admin\DashboardResponses.cshtml" />
+    <Content Include="Views\Donation\DuplicateSuccess.cshtml" />
+    <Content Include="Views\Donation\AddNotificationSuccess.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\MobileDonation\" />
   </ItemGroup>
   <ItemGroup>
@@ -430,8 +447,8 @@
     <EmbeddedResource Include="Migrations\201811080350080_Question-Adjustment.resx">
       <DependentUpon>201811080350080_Question-Adjustment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811090328427_newdb.resx">
-      <DependentUpon>201811090328427_newdb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812080408059_RequestItem_InitialQuantity.resx">
+      <DependentUpon>201812080408059_RequestItem_InitialQuantity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

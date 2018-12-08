@@ -46,12 +46,19 @@
 
         @using (Html.BeginForm())
         {
-            <button type="submit" name="command" value="Donate" class="btn btn-success">Donate</button>
+            if (Model.Progress < 100)
+            {
+                <button type="submit" name="command" value="Donate" class="btn btn-success">Donate</button>
+            }
+
             <button type="submit" name="command" value="Question" class="btn btn-default">Ask a Question</button>
+            <br /><br />
+            <button type="submit" name="command" value="Duplicate" class="btn btn-default">Duplicate this request!</button>
+
+            <br /><br /><br />
+            <p>Category: @Model.CategoryName</p>
+            <button type="submit" name="command" value="Notification" class="btn btn-default">Get notified</button>
         }
-        <br /><br /><br />
-        <p>Category: @Model.CategoryName</p>
-        <button type="button" class="btn btn-default">Get notified</button>
 
         <br /><br />
 

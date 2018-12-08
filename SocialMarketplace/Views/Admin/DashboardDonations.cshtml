@@ -1,0 +1,18 @@
+﻿@model SocialMarketplace.Models.ViewModels.Admin.DashboardSeriesViewModel
+@{
+    ViewBag.Title = "Donations per Day";
+    Layout = null;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{
+    var myChart = new Chart(width: 600, height: 400)
+        .AddTitle("Donation Requests")
+        .AddSeries(
+            name: "Default",
+            chartType: "Bar",
+            xValue: Model.Xvalues,
+            yValues: Model.Yvalues)
+        .Write();
+}

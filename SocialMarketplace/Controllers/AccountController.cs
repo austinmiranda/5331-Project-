@@ -156,6 +156,7 @@ namespace SocialMarketplace.Controllers
                 user.LastName = model.LastName;
                 user.PhoneNumber = model.PhoneNumber;
                 user.Address = model.Address;
+                user.CreatedAt = DateTime.Today;
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
