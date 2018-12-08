@@ -118,9 +118,11 @@ namespace SocialMarketplace.Controllers.Mobile
                     donationBLO.SaveRequestPhoto(UserId, requestId, file);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new HttpResponseException(HttpStatusCode.InternalServerError);
+                var responseMessage = new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                responseMessage.Content = new StringContent(ex.Message + " " + ex.StackTrace.ToString());
+                throw new HttpResponseException(responseMessage);
             }
         }
     }
