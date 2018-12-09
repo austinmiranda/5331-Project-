@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using PagedList;
 using SocialMarketplace.Models;
 using SocialMarketplace.Models.BLL;
 using SocialMarketplace.Models.DAL;
@@ -396,16 +397,19 @@ namespace SocialMarketplace.Controllers
 
 
         //Get User Requests
-        public async Task<ActionResult> DonationRequested(int id, String sortOrder)
+        public async Task<ActionResult> DonationRequested(int id, String sortOrder, int? page)
         {
-
+           
             var user = await UserManager.FindByIdAsync(id);
             var viewModel = donationBLO.GetRequests(id,sortOrder);
 
             ViewBag.sortType = sortOrder;
             ViewBag.uid = id;
 
-            return View(viewModel);
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(viewModel.ToPagedList(pageNumber, pageSize));
         }
 
 

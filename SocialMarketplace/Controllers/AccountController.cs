@@ -375,7 +375,7 @@ namespace SocialMarketplace.Controllers
                 var user = new User { UserName = model.Email, Email = model.Email };
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
-
+                user.CreatedAt = DateTime.Today;
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
