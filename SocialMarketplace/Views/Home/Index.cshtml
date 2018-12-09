@@ -57,14 +57,23 @@
         </ul>
     </div>
     <div class="col-sm-2">
-        <button type="button" class="btn btn-default">Get notified</button>
+        @if (Model.CategoryId != null)
+        {
+            using (Html.BeginForm("AddNotificationCategory", "Donation"))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.CategoryId)
+
+                <button type="submit" class="btn pull-right btn-default">Get notified</button>
+            }
+        }
     </div>
 </div>
 
 
 <!-- DONATIONS -->
 
-<div class="row">
+<div class="row" style="margin-top: 20px">
 
 
     <!-- FEATURED DONATION -->

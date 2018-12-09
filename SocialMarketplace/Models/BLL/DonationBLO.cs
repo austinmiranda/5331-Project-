@@ -451,6 +451,24 @@ namespace SocialMarketplace.Models.BLL
             }
         }
 
+        internal void AddNotificationCategory(int userId, int categoryId)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var category = context.Categories.Find(categoryId);
+
+                var newNotification = new Notification
+                {
+                    InterestedInCategory = category,
+                    UserId = userId,
+                    DateRequested = DateTime.Now
+                };
+
+                context.Notifications.Add(newNotification);
+                context.SaveChanges();
+            }
+        }
+
         internal ResponseFormViewModel CreateEmptyResponseViewModel(int id)
         {
             using (var context = new ApplicationContext())

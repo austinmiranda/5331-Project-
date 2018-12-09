@@ -46,6 +46,8 @@
 
         @using (Html.BeginForm())
         {
+            @Html.AntiForgeryToken()
+
             if (Model.Progress < 100)
             {
                 <button type="submit" name="command" value="Donate" class="btn btn-success">Donate</button>
