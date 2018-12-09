@@ -192,11 +192,11 @@ namespace SocialMarketplace.Models.BLL
 
                             response.Items.Add(new ResponseItem
                             {
-                                Quantity = item.Quantity,
+                                Quantity = item.Quantity.Value,
                                 RequestItem = requestItem
                             });
 
-                            requestItem.Quantity -= item.Quantity;
+                            requestItem.Quantity -= item.Quantity.Value;
                         }
 
                         context.Responses.Add(response);
@@ -483,23 +483,26 @@ namespace SocialMarketplace.Models.BLL
 
                 foreach(var item in request.Items)
                 {
-                    response.Items.Add(new ResponseItemFormViewModel
+                    if(item.Quantity > 0)
                     {
-                        RequestItem = new RequestItemViewModel
+                        response.Items.Add(new ResponseItemFormViewModel
                         {
-                            Id = item.Id,
-                            Title = item.Title,
-                            Detail = item.Detail,
-                            Type = item.Type,
-                            Quantity = item.Quantity
-                        },
+                            RequestItem = new RequestItemViewModel
+                            {
+                                Id = item.Id,
+                                Title = item.Title,
+                                Detail = item.Detail,
+                                Type = item.Type,
+                                Quantity = item.Quantity
+                            },
 
-                        ResponseItemInForm = new ResponseItemViewModel
-                        {
-                            RequestItemId = item.Id,
-                            Quantity = 0
-                        }
-                    });
+                            ResponseItemInForm = new ResponseItemViewModel
+                            {
+                                RequestItemId = item.Id,
+                                Quantity = null
+                            }
+                        });
+                    }
                 }
 
                 return response;

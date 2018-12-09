@@ -5,15 +5,6 @@
 <h2>@ViewBag.Title</h2>
 <div class="row">
     <div class="col-xs-8">
-        @*<form action="/Donation/Completed">
-            <div class="form-group">
-            </div>
-            <div class="form-group">
-                <label for="item1">Indicate which items you are fulfilling and the quantity being donated:</label>
-            </div>
-        </form>*@
-
-
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -25,47 +16,65 @@
                 @Html.ValidationSummary(true, "Please correct the following information:", new { @class = "text-danger" })
             }
 
-        <fieldset>
-            <legend>Please give details on how you pretend to proceed:</legend>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Description)
-                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
+            <fieldset>
+                <legend>Please give details on how you pretend to proceed:</legend>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description)
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Qty</th>
-                        <th>Donating</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Items)
-                    {
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>
-                                <div class="checkbox">
-                                    @Html.CheckBoxFor(model => item.IsDonating,
-                                              new { Name = string.Format("IsDonating_{0}", item.RequestItem.Id) })
-                                    @item.RequestItem.Title - @item.RequestItem.Detail
-                                </div>
-                            </td>
-                            <td>@item.RequestItem.Quantity</td>
-                            <td>
-                                <div class="form-group">
-                                    @Html.EditorFor(model => item.ResponseItemInForm.Quantity, null, string.Format("RequestItem_{0}", item.RequestItem.Id))
-                                    @Html.ValidationMessageFor(model => item.ResponseItemInForm.Quantity, "", new { @class = "text-danger" })
-                                </div>
-                            </td>
+                            <th>Item</th>
+                            <th>Qty</th>
+                            <th>Donating</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(model => item.IsDonating,
+                                                  new { Name = string.Format("IsDonating_{0}", item.RequestItem.Id) })
+                                        @item.RequestItem.Title - @item.RequestItem.Detail
+                                    </div>
+                                </td>
+                                <td>@item.RequestItem.Quantity</td>
+                                <td>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => item.ResponseItemInForm.Quantity, null, string.Format("RequestItem_{0}", item.RequestItem.Id), new { htmlAttributes = new { @disabled = "true" } })
+                                        @Html.ValidationMessageFor(model => item.ResponseItemInForm.Quantity, "", new { @class = "text-danger" })
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-            <button type="submit" name="Command" value="Next" class="btn btn-success pull-right">Complete donation</button>
-        </fieldset>
+                <button type="submit" name="Command" value="Next" class="btn btn-success pull-right">Complete donation</button>
+            </fieldset>
         }
     </div>
 </div>
+
+@section scripts {
+    <script>
+        $(function () {
+            $('[name^=IsDonating_]').change(function () {
+                let name = $(this).attr('name');
+                let id = name.substr(name.indexOf('_') + 1);
+                let quantity = $('input[name=RequestItem_' + id + ']');
+
+                let isChecked = $(this).is(":checked");
+                quantity.prop('disabled', !isChecked);
+
+                if (!isChecked)
+                    quantity.val('');
+            });
+        });
+    </script>
+}
