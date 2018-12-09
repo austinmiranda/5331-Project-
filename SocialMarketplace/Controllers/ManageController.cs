@@ -11,6 +11,7 @@ using PagedList;
 using SocialMarketplace.Models;
 using SocialMarketplace.Models.BLL;
 using SocialMarketplace.Models.DAL;
+using SocialMarketplace.Models.Utils;
 
 namespace SocialMarketplace.Controllers
 {
@@ -22,7 +23,7 @@ namespace SocialMarketplace.Controllers
 
         //DonationBLO instance
         private readonly DonationBLO donationBLO = new DonationBLO();
-
+        private readonly DonationGivenBLO donationGivenBLO = new DonationGivenBLO();
 
         public ManageController()
         {
@@ -411,8 +412,41 @@ namespace SocialMarketplace.Controllers
             int pageNumber = (page ?? 1);
             return View(viewModel.ToPagedList(pageNumber, pageSize));
         }
+       
 
+        public ActionResult DonationGiven(int id)
+        {
+            try
+            {
+                var viewModel = donationGivenBLO.GetResponseList(id);
 
+                return View(viewModel);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View();
+            }
+
+        }
+
+        public ActionResult DonationGivenDetailList(int id)
+        {
+            try
+            {
+                var viewModel = donationGivenBLO.GetItemList(id);
+                
+                return View(viewModel);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View();
+            }
+
+        }
 
         #region Helpers
         // Used for XSRF protection when adding external logins

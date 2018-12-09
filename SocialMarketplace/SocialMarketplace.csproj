@@ -267,6 +267,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BLL\AdminBLO.cs" />
     <Compile Include="Models\BLL\DonationBLO.cs" />
+    <Compile Include="Models\BLL\DonationGivenBLO.cs" />
     <Compile Include="Models\BLL\HomeBLO.cs" />
     <Compile Include="Models\DAL\ApplicationContext.cs" />
     <Compile Include="Models\Entities\Area.cs" />
@@ -313,6 +314,8 @@
     <Compile Include="Models\ViewModels\Response\ResponseItemFormViewModel.cs" />
     <Compile Include="Models\ViewModels\Response\ResponseItemViewModel.cs" />
     <Compile Include="Models\ViewModels\Response\ResponseViewModel.cs" />
+    <Compile Include="Models\ViewModels\User\ResponseItemUserGivenModel.cs" />
+    <Compile Include="Models\ViewModels\User\ResponseUserGivenModel.cs" />
     <Compile Include="Models\ViewModels\User\UserDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
@@ -323,11 +326,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-
     <Content Include="Content\PagedList.css" />
-
     <Content Include="Content\smfull.png" />
-
     <Content Include="Content\Zocial.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -413,9 +413,9 @@
     <Content Include="Views\Admin\DashboardResponses.cshtml" />
     <Content Include="Views\Donation\DuplicateSuccess.cshtml" />
     <Content Include="Views\Donation\AddNotificationSuccess.cshtml" />
-
     <Content Include="Views\Donation\RequestDetails.cshtml" />
-
+    <Content Include="Views\Manage\DonationGiven.cshtml" />
+    <Content Include="Views\Manage\DonationGivenDetailList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

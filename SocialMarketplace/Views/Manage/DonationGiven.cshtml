@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SocialMarketplace.Models.ViewModels.User.ResponseUserGivenModel>
+
+<p>
+    View Your Donation Response List
+</p>
+<table class="table table-striped table-bordered" id="requestsTable" style="width:100%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataCreated)
+        </th>
+        <th>
+            Check Details
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataCreated)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "DonationGivenDetailList", new { id=item.Id }) 
+        </td>
+    </tr>
+}
+
+</table>
