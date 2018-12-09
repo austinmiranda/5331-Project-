@@ -7,7 +7,7 @@ namespace SocialMarketplace.Models.ViewModels.Response
 {
     public class ResponseItemViewModel
     {
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
         public int RequestItemId { get; set; }
     }
 }

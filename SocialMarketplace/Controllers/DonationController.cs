@@ -327,7 +327,7 @@ namespace SocialMarketplace.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Detail(int id, String command)
         {
             try
@@ -365,7 +365,23 @@ namespace SocialMarketplace.Controllers
             catch(Exception ex)
             {
                 ErrorHandling.AddModelError(ModelState, ex);
-                return View();
+                return View("Error");
+            }
+        }
+
+        [HttpPost, Authorize, ValidateAntiForgeryToken]
+        public ActionResult AddNotificationCategory(int CategoryId)
+        {
+            try
+            {
+                donationBLO.AddNotificationCategory(User.Identity.GetUserId<int>(), CategoryId);
+
+                return RedirectToAction("AddNotificationSuccess");
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View("Error");
             }
         }
 
