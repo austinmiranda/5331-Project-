@@ -327,7 +327,7 @@ namespace SocialMarketplace.Models.BLL
                         throw new Exception("Request already completed");
 
                     // If already started or was suspendend, keep that way
-                    if (entity.Status == RequestStatus.IN_PROGRESS || entity.Status == RequestStatus.IN_PROGRESS)
+                    if (entity.Status == RequestStatus.ACTIVE || entity.Status == RequestStatus.SUSPENDED)
                         status = entity.Status;
 
                     entity.Area = area;
@@ -566,6 +566,7 @@ namespace SocialMarketplace.Models.BLL
                     Title = requestItem.Title,
                     Detail = requestItem.Detail,
                     Quantity = requestItem.Quantity,
+                    InitialQuantity = requestItem.Quantity,
                     Type = requestItem.Type,
                     Request = request
                 };
