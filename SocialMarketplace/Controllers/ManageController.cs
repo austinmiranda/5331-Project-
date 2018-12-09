@@ -12,8 +12,12 @@ using PagedList;
 using SocialMarketplace.Models;
 using SocialMarketplace.Models.BLL;
 using SocialMarketplace.Models.DAL;
+
 using SocialMarketplace.Models.ViewModels.Request;
 using SocialMarketplace.Models.ViewModels.Response;
+
+using SocialMarketplace.Models.Utils;
+
 
 namespace SocialMarketplace.Controllers
 {
@@ -25,7 +29,7 @@ namespace SocialMarketplace.Controllers
 
         //DonationBLO instance
         private readonly DonationBLO donationBLO = new DonationBLO();
-
+        private readonly DonationGivenBLO donationGivenBLO = new DonationGivenBLO();
 
         public ManageController()
         {
@@ -43,9 +47,9 @@ namespace SocialMarketplace.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -89,7 +93,7 @@ namespace SocialMarketplace.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId.ToString())
             };
-            
+
             return View(model);
         }
 
@@ -417,7 +421,7 @@ namespace SocialMarketplace.Controllers
             ViewBag.uid = uid;
             using (var context = new ApplicationContext())
             {
-                
+
                     var request = context.Requests
                 .Where(x => x.Id == id && x.UserId == uid).SingleOrDefault();
 
@@ -450,7 +454,7 @@ namespace SocialMarketplace.Controllers
                             Quantity = item.Quantity
                         });
                     };
-                
+
                     var responses = context.Responses
                         .Where(x => x.Request.Id == id)
                         .Select(x => new ResponseUserViewModel
@@ -493,9 +497,9 @@ namespace SocialMarketplace.Controllers
                         Responses = responses
                     };
 
-               
+
                     return View(requestDetailsViewModel);
-                
+
             }
         }
 
@@ -529,7 +533,7 @@ namespace SocialMarketplace.Controllers
             //Get User Requests
             public async Task<ActionResult> DonationRequested(int id, String sortOrder, int? page)
         {
-           
+
             var user = await UserManager.FindByIdAsync(id);
             var viewModel = donationBLO.GetRequests(id,sortOrder);
 
@@ -543,6 +547,39 @@ namespace SocialMarketplace.Controllers
         }
 
 
+        public ActionResult DonationGiven(int id)
+        {
+            try
+            {
+                var viewModel = donationGivenBLO.GetResponseList(id);
+
+                return View(viewModel);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View();
+            }
+
+        }
+
+        public ActionResult DonationGivenDetailList(int id)
+        {
+            try
+            {
+                var viewModel = donationGivenBLO.GetItemList(id);
+
+                return View(viewModel);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.AddModelError(ModelState, ex);
+                return View();
+            }
+
+        }
 
         #region Helpers
         // Used for XSRF protection when adding external logins
@@ -595,7 +632,7 @@ namespace SocialMarketplace.Controllers
             Error
         }
 
-        
+
 
 
         #endregion
