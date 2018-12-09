@@ -190,13 +190,16 @@ namespace SocialMarketplace.Models.BLL
                             if (item.Quantity > requestItem.Quantity)
                                 throw new Exception("Quantity exceeds limit!");
 
-                            response.Items.Add(new ResponseItem
+                            if(item.Quantity > 0)
                             {
-                                Quantity = item.Quantity.Value,
-                                RequestItem = requestItem
-                            });
+                                response.Items.Add(new ResponseItem
+                                {
+                                    Quantity = item.Quantity.Value,
+                                    RequestItem = requestItem
+                                });
 
-                            requestItem.Quantity -= item.Quantity.Value;
+                                requestItem.Quantity -= item.Quantity.Value;
+                            }
                         }
 
                         context.Responses.Add(response);
@@ -213,6 +216,9 @@ namespace SocialMarketplace.Models.BLL
                         int progress = 100 * donated / total;
 
                         request.Progress = progress;
+
+                        if (donated == total)
+                            request.Status = RequestStatus.COMPLETED;
 
                         context.SaveChanges();
 
