@@ -705,7 +705,7 @@ namespace SocialMarketplace.Models.BLL
             using (var context = new ApplicationContext())
             {
                
-                var query = context.Requests.Where(r => r.UserId == id);
+                var query = context.Requests.Where(r => r.UserId == id && r.Status != RequestStatus.IN_PROGRESS);
 
                 //if (sortByTitle)
                 //    query = query.OrderBy(x => x.Title);
@@ -769,78 +769,6 @@ namespace SocialMarketplace.Models.BLL
             }
         }
 
-
-        public RequestDetailsViewModel RequestDetails(int id, int uid)
-        {
-            using (var context = new ApplicationContext())
-            {
-                var request = context.Requests
-                    .Where(x => x.Id == id && x.UserId == uid).SingleOrDefault();
-
-                if (request == null)
-                    return null;
-
-                var detailViewModel = new DetailViewModel
-                {
-                    Id = request.Id,
-                    CategoryId = request.Category.Id,
-                    CategoryName = request.Category.Name,
-                    Title = request.Title,
-                    Subtitle = request.Subtitle,
-                    Description = request.Description,
-                    DateDue = request.DateDue,
-                    Keywords = request.Keywords,
-                    VideoURL = request.VideoURL,
-                    Progress = request.Progress,
-                    Items = new List<RequestItemViewModel>()
-                };
-
-                foreach (var item in request.Items)
-                {
-                    detailViewModel.Items.Add(new RequestItemViewModel
-                    {
-                        Id = item.Id,
-                        Title = item.Title,
-                        Detail = item.Detail,
-                        Type = item.Type,
-                        Quantity = item.Quantity
-                    });
-                };
-
-                var responses = context.Responses
-                    .Where(x => x.Request.Id == id)
-                    .Select(x => new ResponseViewModel
-                    {
-                        Id = x.Id,
-                        Description = x.Description
-                      //  ,
-                        //Items = new List<ResponseItemViewModel>()
-                    }).ToList();
-
-                foreach (var r in responses)
-                {
-                    var resI = context.ResponseItems.Where(y => y.Response.Id == r.Id).SingleOrDefault();
-                    r.Items = new List<ResponseItemViewModel>();
-
-                    r.Items.Add(new ResponseItemViewModel
-                    {
-                        RequestItemId = resI.RequestItem.Id,
-                        Quantity = resI.Quantity
-                    });
-                };
-
-
-                var requestDetailsViewModel = new RequestDetailsViewModel
-                {
-                    Request = detailViewModel,
-                    Responses = responses
-                };
-
-
-
-                return requestDetailsViewModel;
-            }
-        }
 
     }
 }

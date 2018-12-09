@@ -9,5 +9,6 @@ namespace SocialMarketplace.Models.ViewModels.Response
     {
         public int? Quantity { get; set; }
         public int RequestItemId { get; set; }
+        public string RequestItemName { get; set; }
     }
 }

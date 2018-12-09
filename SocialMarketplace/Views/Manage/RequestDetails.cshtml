@@ -1,0 +1,191 @@
+﻿@model SocialMarketplace.Models.ViewModels.Request.RequestDetailsViewModel
+
+@{
+    ViewBag.Title = "RequestDetails";
+}
+
+<h2>Request Detail: @Model.Request.Title</h2>
+@Html.ActionLink("To Donation Page", "Detail", "Donation", new { id = Model.Request.Id }, null)
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-sm-5">
+            <dl class="dl-horizontal" style="font-size:larger">
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Request.Title)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Request.Title)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Request.Subtitle)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Request.Subtitle)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Request.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Request.Description)
+                </dd>
+                <dt>
+                    Category Name
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Request.CategoryName)
+                </dd>
+
+                <dt>
+                    Date Due
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Request.DateDue)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Request.Keywords)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Request.Keywords)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Request.PhotoURL)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Request.PhotoURL)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Request.VideoURL)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Request.VideoURL)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Request.Progress)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Request.Progress) %
+                </dd>
+
+            </dl>
+        </div>
+        <div class="col-sm-7">
+            <h4>Items Requested</h4>
+            <table class="table table-striped table-bordered" id="requestsTable" style="width:100%">
+                <thead>
+                    <tr>
+                        <td>
+                            Item
+                        </td>
+                        <td>
+                            Detail
+                        </td>
+                        <td>
+                            Type
+                        </td>
+                        <td>
+                            Quantity Remaining
+                        </td>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Request.Items)
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Detail)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Type)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+
+                        </tr>
+
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h3>Responses</h3>
+    <table class="table table-striped table-bordered" id="responsesTable" style="width:100%">
+
+        <thead>
+            <tr>
+                <td>
+                    User
+                </td>
+                <td>
+                    Comments
+                </td>
+                <td>
+                    Response Details
+                </td>
+                <td>
+                    Response Date
+                </td>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Responses)
+            {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+                <td>
+                    @foreach (var itemitem in item.Items)
+                    {
+                        @("Item: " + itemitem.RequestItemName + ", Quantity Donated: " + itemitem.Quantity )
+                        <br />
+
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+            </tr>
+
+
+            }
+        </tbody>
+    </table>
+
+
+</div>
+<p>
+    @Html.ActionLink("Back to Request List", "DonationRequested", "Manage", new { id = ViewBag.uid, sortOrder = "Title" }, null)
+</p>
+

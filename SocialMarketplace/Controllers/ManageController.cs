@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ using PagedList;
 using SocialMarketplace.Models;
 using SocialMarketplace.Models.BLL;
 using SocialMarketplace.Models.DAL;
+using SocialMarketplace.Models.ViewModels.Request;
+using SocialMarketplace.Models.ViewModels.Response;
 
 namespace SocialMarketplace.Controllers
 {
@@ -394,10 +397,137 @@ namespace SocialMarketplace.Controllers
             return View();
         }
 
+        //Get Request Details
+
+        //public ActionResult RequestDetails(int id, int uid)
+        //{
+
+        //    //var userId = User.Identity.GetUserId<int>();
+        //    ViewBag.uid = uid;
+        //    var viewModel = donationBLO.RequestDetails(id, uid);
+
+        //    return View(viewModel);
+        //}
 
 
-        //Get User Requests
-        public async Task<ActionResult> DonationRequested(int id, String sortOrder, int? page)
+
+        public async Task<ActionResult> RequestDetails(int id, int uid)
+        {
+
+            ViewBag.uid = uid;
+            using (var context = new ApplicationContext())
+            {
+                
+                    var request = context.Requests
+                .Where(x => x.Id == id && x.UserId == uid).SingleOrDefault();
+
+                    if (request == null)
+                        return null;
+
+                    var detailViewModel = new DetailViewModel
+                    {
+                        Id = request.Id,
+                        CategoryId = request.Category.Id,
+                        CategoryName = request.Category.Name,
+                        Title = request.Title,
+                        Subtitle = request.Subtitle,
+                        Description = request.Description,
+                        DateDue = request.DateDue,
+                        Keywords = request.Keywords,
+                        VideoURL = request.VideoURL,
+                        Progress = request.Progress,
+                        Items = new List<RequestItemViewModel>()
+                    };
+
+                    foreach (var item in request.Items)
+                    {
+                        detailViewModel.Items.Add(new RequestItemViewModel
+                        {
+                            Id = item.Id,
+                            Title = item.Title,
+                            Detail = item.Detail,
+                            Type = item.Type,
+                            Quantity = item.Quantity
+                        });
+                    };
+                
+                    var responses = context.Responses
+                        .Where(x => x.Request.Id == id)
+                        .Select(x => new ResponseUserViewModel
+                        {
+                            Id = x.Id,
+                            Description = x.Description,
+                            userId = x.UserId,
+                            DateCreated = x.DateCreated
+                        // userName = identityC.Users.Where(u => u.Id == x.UserId).SingleOrDefault().;
+
+                    }).ToList();
+
+                    foreach (var r in responses)
+                    {
+                        var resI = context.ResponseItems.Where(y => y.Response.Id == r.Id).ToList();
+                        r.Items = new List<ResponseItemViewModel>();
+                        r.userName = new string(new char[] { });
+                        var userId = r.userId;
+                        var user = await UserManager.FindByIdAsync(userId);
+                        System.Diagnostics.Debug.WriteLine(user);
+                        if (user == null)
+                            r.userName = "Anonymous";
+                        else
+                            r.userName = user.UserName;
+
+                        foreach (var item in resI)
+                        {
+                            r.Items.Add(new ResponseItemViewModel
+                            {
+                                RequestItemName = item.RequestItem.Title,
+                                Quantity = item.Quantity
+                            });
+                        }
+
+                    };
+
+                    var requestDetailsViewModel = new RequestDetailsViewModel
+                    {
+                        Request = detailViewModel,
+                        Responses = responses
+                    };
+
+               
+                    return View(requestDetailsViewModel);
+                
+            }
+        }
+
+        public ActionResult RequestDisable(int id, int uid)
+        {
+            using(var context = new ApplicationContext())
+            {
+                var request = context.Requests
+                .Where(x => x.Id == id && x.UserId == uid).SingleOrDefault();
+
+                if (request == null)
+                    return null;
+
+                if (request.Status == Models.Entities.Enum.RequestStatus.ACTIVE)
+                {
+                    request.Status = Models.Entities.Enum.RequestStatus.SUSPENDED;
+                }
+                else if(request.Status == Models.Entities.Enum.RequestStatus.SUSPENDED)
+                {
+                    request.Status = Models.Entities.Enum.RequestStatus.ACTIVE;
+                }
+
+                context.SaveChanges();
+            }
+
+
+            return RedirectToAction("DonationRequested", new { id = uid, sortOrder = "Title" });
+        }
+
+
+            //Get User Requests
+            public async Task<ActionResult> DonationRequested(int id, String sortOrder, int? page)
         {
            
             var user = await UserManager.FindByIdAsync(id);

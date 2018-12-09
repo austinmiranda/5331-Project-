@@ -112,9 +112,23 @@
                     @Html.DisplayFor(modelItem => item.Category)
                 </td>
                 <td>
-                   @* @Html.ActionLink("Edit", "Edit", new { id = item.Id })|*@
-                    @Html.ActionLink("Details", "RequestDetails", "Donation", new { id = item.Id, uid = ViewBag.uid }, null) |
-                    @Html.ActionLink("Disable", "RequestDisable", new { id = item.Id })
+                    @* @Html.ActionLink("Edit", "Edit", new { id = item.Id })|*@
+                    @Html.ActionLink("Details", "RequestDetails", "Manage", new { id = item.Id, uid = ViewBag.uid }, null) |
+                    @if (item.Status == SocialMarketplace.Models.Entities.Enum.RequestStatus.ACTIVE)
+                    {
+                        @Html.ActionLink("Disable", "RequestDisable", "Manage", new { id = item.Id, uid = ViewBag.uid }, null)
+
+                    }
+                    else if (item.Status == SocialMarketplace.Models.Entities.Enum.RequestStatus.SUSPENDED)
+                    {
+                        @Html.ActionLink("Enable", "RequestDisable", "Manage", new { id = item.Id, uid = ViewBag.uid }, null)
+
+                    }
+                    else if (item.Status == SocialMarketplace.Models.Entities.Enum.RequestStatus.COMPLETED)
+                    {
+                        <text>Completed</text>
+
+                    }
                 </td>
             </tr>
         </tbody>

@@ -312,6 +312,7 @@
     <Compile Include="Models\ViewModels\Response\ResponseFormViewModel.cs" />
     <Compile Include="Models\ViewModels\Response\ResponseItemFormViewModel.cs" />
     <Compile Include="Models\ViewModels\Response\ResponseItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\Response\ResponseUserViewModel.cs" />
     <Compile Include="Models\ViewModels\Response\ResponseViewModel.cs" />
     <Compile Include="Models\ViewModels\User\UserDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -323,11 +324,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-
     <Content Include="Content\PagedList.css" />
-
     <Content Include="Content\smfull.png" />
-
     <Content Include="Content\Zocial.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -413,9 +411,7 @@
     <Content Include="Views\Admin\DashboardResponses.cshtml" />
     <Content Include="Views\Donation\DuplicateSuccess.cshtml" />
     <Content Include="Views\Donation\AddNotificationSuccess.cshtml" />
-
-    <Content Include="Views\Donation\RequestDetails.cshtml" />
-
+    <Content Include="Views\Manage\RequestDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

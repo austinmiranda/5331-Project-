@@ -9,7 +9,7 @@ namespace SocialMarketplace.Models.ViewModels.Request
     public class RequestDetailsViewModel
     {
         public DetailViewModel Request { get; set; }
-        public IList<ResponseViewModel> Responses { get; set; }
+        public IList<ResponseUserViewModel> Responses { get; set; }
 
     }
 }

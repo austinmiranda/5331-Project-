@@ -426,19 +426,5 @@ namespace SocialMarketplace.Controllers
         }
 
 
-
-        
-        //Detils User request Get 
-
-        public ActionResult RequestDetails(int id, int uid)
-        {
-
-            //var userId = User.Identity.GetUserId<int>();
-            ViewBag.uid = uid;
-            var viewModel = donationBLO.RequestDetails(id,uid);
-
-            return View(viewModel);
-        }
-
     }
 }
