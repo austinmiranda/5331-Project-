@@ -1,14 +1,13 @@
-﻿@model IEnumerable<SocialMarketplace.Models.ViewModels.Request.DonationRequestedViewModel>
+﻿@model PagedList.IPagedList<SocialMarketplace.Models.ViewModels.Request.DonationRequestedViewModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "DonationRequested";
 }
 
-<h2>DonationRequested</h2>
+<h2>Donations Requested</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table table-striped table-bordered" id="requestsTable" style="width:100%">
     <thead>
         <tr>
@@ -26,13 +25,22 @@
 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Subtitle)
+                @Html.DisplayNameFor(model => model.First().Subtitle)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.First().Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
+                @if (ViewBag.sortType == "Datecreated")
+                {
+
+                    <text>@Html.ActionLink("Date Created", "DonationRequested", new { id = ViewBag.uid, sortOrder = "Datecreated_desc" })</text>
+                }
+                else
+                {
+                    <text>@Html.ActionLink("Date Created", "DonationRequested", new { id = ViewBag.uid, sortOrder = "Datecreated" })</text>
+
+                }
             </th>
             <th>
                 @if (ViewBag.sortType == "Datedue")
@@ -104,9 +112,9 @@
                     @Html.DisplayFor(modelItem => item.Category)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "RequestStep1", "Donation", new { id = item.Id },null)|
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                   @* @Html.ActionLink("Edit", "Edit", new { id = item.Id })|*@
+                    @Html.ActionLink("Details", "RequestDetails", "Donation", new { id = item.Id, uid = ViewBag.uid }, null) |
+                    @Html.ActionLink("Disable", "RequestDisable", new { id = item.Id })
                 </td>
             </tr>
         </tbody>
@@ -114,3 +122,6 @@
 
 </table>
 
+<br />
+@Html.PagedListPager(Model, page => Url.Action("DonationRequested",
+    new { page, sortOrder = Request.QueryString["sortOrder"] }))

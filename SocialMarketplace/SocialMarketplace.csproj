@@ -49,6 +49,12 @@
     <Reference Include="Microsoft.Owin.Cors, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Cors.4.0.0\lib\net451\Microsoft.Owin.Cors.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -290,6 +296,7 @@
     <Compile Include="Models\ViewModels\Request\DetailViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\DonationRequestedViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\QuestionViewModel.cs" />
+    <Compile Include="Models\ViewModels\Request\RequestDetailsViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestItemViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestListViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\RequestOptionalViewModel.cs" />
@@ -301,12 +308,9 @@
     <Compile Include="Models\ViewModels\Request\SearchFormViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\SearchResultViewModel.cs" />
     <Compile Include="Models\ViewModels\Request\SearchViewModel.cs" />
-
     <Compile Include="Models\ViewModels\Request\SortViewModel.cs" />
-
     <Compile Include="Models\ViewModels\Response\ResponseFormViewModel.cs" />
     <Compile Include="Models\ViewModels\Response\ResponseItemFormViewModel.cs" />
-
     <Compile Include="Models\ViewModels\Response\ResponseItemViewModel.cs" />
     <Compile Include="Models\ViewModels\Response\ResponseViewModel.cs" />
     <Compile Include="Models\ViewModels\User\UserDetailsViewModel.cs" />
@@ -319,6 +323,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Zocial.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -396,9 +401,7 @@
     <Content Include="Views\Home\PrivacyCookiesPolicy.cshtml" />
     <Content Include="Views\Manage\Edit.cshtml" />
     <Content Include="Views\Donation\Question.cshtml" />
-
     <Content Include="Views\Manage\DonationRequested.cshtml" />
-
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\DashboardNewUsers.cshtml" />
     <Content Include="Views\View.cshtml" />
@@ -406,7 +409,7 @@
     <Content Include="Views\Admin\DashboardResponses.cshtml" />
     <Content Include="Views\Donation\DuplicateSuccess.cshtml" />
     <Content Include="Views\Donation\AddNotificationSuccess.cshtml" />
-
+    <Content Include="Views\Donation\RequestDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
