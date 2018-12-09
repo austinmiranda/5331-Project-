@@ -15,3 +15,6 @@ ApplicationContext.
 2) Run the SQL script that is in the root of the
    package. It will create the database with the correct name of the
    connection string, and populate the database with sample data.
+
+3) You can register as a regular user, or you can log as an Admin:
+	henrique.tensfeld@gmail.com, password Abc123!
