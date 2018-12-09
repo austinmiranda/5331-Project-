@@ -3,7 +3,7 @@ SOCIAL MARKETPLACE
 
 BY Austin Miranda, Dongxue Hao, Henrique Tensfeld
 
-OCTOBER 2018
+DECEMBER 2018
 =================================================
 
 HOW TO RUN THIS APPLICATION
@@ -12,7 +12,6 @@ HOW TO RUN THIS APPLICATION
 machine. There are 2 connection strings to check: IdentityDbContext and
 ApplicationContext.
 
-2) Create tables and seed data: go to the Packager Manager Console, and type
-
-          Update-Database
-
+2) Run the SQL script that is in the root of the
+   package. It will create the database with the correct name of the
+   connection string, and populate the database with sample data.
