@@ -113,7 +113,8 @@ namespace SocialMarketplace.Models.BLL
 
             using (var context = new ApplicationContext())
             {
-                IQueryable<Request> query = context.Requests;
+                IQueryable<Request> query = context.Requests
+                    .Where(x => x.Status == RequestStatus.ACTIVE);
 
                 if (searchViewModel.CategoryId != 0)
                     query = query.Where(x => x.Category.Id == searchViewModel.CategoryId);
