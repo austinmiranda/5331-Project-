@@ -288,6 +288,7 @@
     <Compile Include="Models\Utils\ApiAuthorize.cs" />
     <Compile Include="Models\Utils\AuthRepository.cs" />
     <Compile Include="Models\ViewModels\Admin\DashboardSeriesViewModel.cs" />
+    <Compile Include="Models\ViewModels\Charts\RequestChartViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\HomeViewModel.cs" />
     <Compile Include="Models\ViewModels\Home\RequestViewModel.cs" />
@@ -414,13 +415,9 @@
     <Content Include="Views\Admin\DashboardResponses.cshtml" />
     <Content Include="Views\Donation\DuplicateSuccess.cshtml" />
     <Content Include="Views\Donation\AddNotificationSuccess.cshtml" />
-
     <Content Include="Views\Manage\RequestDetails.cshtml" />
-
-    
     <Content Include="Views\Manage\DonationGiven.cshtml" />
     <Content Include="Views\Manage\DonationGivenDetailList.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

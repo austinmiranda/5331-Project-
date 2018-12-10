@@ -17,7 +17,8 @@ using SocialMarketplace.Models.ViewModels.Request;
 using SocialMarketplace.Models.ViewModels.Response;
 
 using SocialMarketplace.Models.Utils;
-
+using SocialMarketplace.Models.ViewModels.Charts;
+using System.Web.Helpers;
 
 namespace SocialMarketplace.Controllers
 {
@@ -544,6 +545,32 @@ namespace SocialMarketplace.Controllers
             int pageSize = 3;
             int pageNumber = (page ?? 1);
             return View(viewModel.ToPagedList(pageNumber, pageSize));
+        }
+
+
+        public ActionResult ViewsChart(int id)
+        {
+
+            using(var context = new ApplicationContext())
+            {
+                var data = context.Requests.Where(r => r.UserId == id && r.Status != Models.Entities.Enum.RequestStatus.IN_PROGRESS)
+                    .Select(x => new RequestChartViewModel
+                    {
+                        
+                        Title = x.Title,
+                        Views = x.VisualizationCount
+
+
+                    }).ToList();
+
+                var myChart = new Chart(width: 600, height: 400)
+                       .AddTitle("Page Views for Your Requests")
+                       .DataBindTable(dataSource: data, xField: "Title")
+                       .Write();
+                return File(myChart.ToWebImage().GetBytes(), "image/jpeg");
+            }
+
+            
         }
 
 
